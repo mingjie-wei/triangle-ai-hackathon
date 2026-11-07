@@ -21,6 +21,7 @@ The response carries reply, up to eight sources, resolvedScope (place, interval,
 ## Supported questions and limitations
 
 Examples:
+
 - “What music events are coming up?”
 - “What is happening at Duke Chapel?”
 - “What events are happening this weekend?”
@@ -37,24 +38,42 @@ Use current filters defaults off; opted-in filters are shown and intersected. Co
 ## Optional Claude and cost control
 
 Retrieval-only mode requires no API key. Set server-only variables from .env.example:
+
 - CHAT_MODEL_ENABLED=true
-- ANTHROPIC_API_KEY
-- ANTHROPIC_MODEL: an exact model ID available to the account; no prototype default is assumed.
+- DEEPSEEK_API_KEY
+- DEEPSEEK_MODEL: an exact DeepSeek model ID available to the account (e.g. `deepseek-flash`); no prototype default is assumed.
 
 The adapter checks GET /v1/models/{id} before POST /v1/messages. Uses native fetch, the documented 2023-06-01 version header and no SDK dependency. API reference: [Messages](https://platform.claude.com/docs/en/api/messages/create) and [Models](https://platform.claude.com/docs/en/api/models/list).
 
-This first release deliberately allows Claude to select exact title extracts from at most eight retrieved records, not generate unverifiable practical advice. Unknown citations, duplicate citations, invented text, malformed JSON and provider failures fall back to retrieved facts. URLs/IDs/actions never come from model output. User questions and records are sent as untrusted data; no tool execution, secrets, arbitrary actions or conversation logging. Optional model calls send the question and bounded candidate records to Anthropic; history is accepted for contract compatibility but not forwarded or persisted.
+This first release deliberately allows the model (DeepSeek, `POST https://api.deepseek.com/chat/completions`) to select exact title extracts from at most eight retrieved records, not generate unverifiable practical advice. Unknown citations, duplicate citations, invented text, malformed JSON and provider failures fall back to retrieved facts. URLs/IDs/actions never come from model output. User questions and records are sent as untrusted data; no tool execution, secrets, arbitrary actions or conversation logging. Optional model calls send the question and bounded candidate records to DeepSeek; history is accepted for contract compatibility but not forwarded or persisted.
 
 In production, model access fails closed to retrieval-only unless a shared Redis REST limiter is configured:
+
 - CHAT_RATE_LIMIT_URL and CHAT_RATE_LIMIT_TOKEN (dedicated HTTPS Redis REST endpoint, e.g. Upstash)
 - CHAT_MODEL_REQUESTS_PER_MINUTE (default 20, validated range 1–100)
 
-An atomic EVAL increments a global minute bucket and sets expiry. Exceeded limits return RATE_LIMITED/429; missing/broken limiter returns factual retrieval fallback without calling Anthropic. This is cross-instance model cost control, not per-user authentication or a daily spend budget. Use provider spend limits and hosting request protection before public rollout; retrieval/database abuse protection remains a hosting responsibility. Never expose these secrets with NEXT_PUBLIC_. No model key is needed for builds or tests.
+An atomic EVAL increments a global minute bucket and sets expiry. Exceeded limits return RATE_LIMITED/429; missing/broken limiter returns factual retrieval fallback without calling DeepSeek. This is cross-instance model cost control, not per-user authentication or a daily spend budget. Use provider spend limits and hosting request protection before public rollout; retrieval/database abuse protection remains a hosting responsibility. Never expose these secrets with NEXT_PUBLIC_. No model key is needed for builds or tests.
 
 ## Verification
 
 Typecheck, ESLint, production build and automated tests pass. Suite: 40 passed, one PostgreSQL integration test skipped without a test database. Sixteen chat tests cover strict input, Eastern DST intervals, real retrieval, explicit/context precedence, pending/unknown buildings, unsupported dates, filter conflict, follow-up ID revalidation, cancellations, unmapped sources, missing/failed providers, invalid generated claims/citations, valid model extracts, production limiter gating and route errors.
 
-Browser verified at 1440×900 and 390×844: real music results, tomorrow follow-up, transcript retained after close/reopen, source Locate focusing the existing map, source Building details opening exactly one native dialog, Escape and Tab containment, mobile overflow and long source lists. Screenshots: reports/ask-map-desktop.png, ask-map-mobile.png and ask-map-source-action.png. Provider failures and database failures use deterministic tests; no live Anthropic smoke test or live database check was run. Physical device keyboards/touch and hosting-level limits still require deployment testing.
+Browser verified at 1440×900 and 390×844: real music results, tomorrow follow-up, transcript retained after close/reopen, source Locate focusing the existing map, source Building details opening exactly one native dialog, Escape and Tab containment, mobile overflow and long source lists. Screenshots: reports/ask-map-desktop.png, ask-map-mobile.png and ask-map-source-action.png. Provider failures and database failures use deterministic tests; no live DeepSeek smoke test or live database check was run. Physical device keyboards/touch and hosting-level limits still require deployment testing.
 
 Existing map camera, event filters, pagination and popup code remain intact. Integrated /api/chat compiles as a Next route. No account, vector database, schema migration, new ingestion pipeline or additional building coverage was introduced.
+
+## Live DeepSeek test
+
+Retrieval-only (default, no key): `DATA_MODE=fixture CHAT_MODEL_ENABLED=false npm run dev`.
+
+Live model test (shell only; never commit keys):
+
+```
+export DEEPSEEK_API_KEY=...          # server-side only
+export DEEPSEEK_MODEL=deepseek-flash # confirm the ID in your DeepSeek account
+DATA_MODE=fixture CHAT_MODEL_ENABLED=true npm run dev
+```
+
+Outside production, no Redis limiter is required. In production, `CHAT_RATE_LIMIT_URL` and `CHAT_RATE_LIMIT_TOKEN` are required or the model is skipped.
+
+Tell DeepSeek from fallback in the `/api/chat` response: `data.meta.answerMode` is `"model"` only when DeepSeek answered and validation passed (the reply opens with a short "events to check out" recommendation). `"retrieval"` means fallback, and `data.meta.fallbackReason` says why: `MODEL_NOT_CONFIGURED`, `MODEL_LIMIT_UNAVAILABLE`, `PROVIDER_UNAVAILABLE` (non-2xx or bad model ID), or `PROVIDER_OR_VALIDATION_FAILURE` (timeout, malformed or ungrounded output). Questions with no event results or needing clarification skip the model and return plain retrieval with no `fallbackReason`.
