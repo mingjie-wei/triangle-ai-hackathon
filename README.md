@@ -2,6 +2,8 @@
 
 A Next.js / React / TypeScript campus event explorer: select a place, filter upcoming and ongoing events, and open the official Duke listing. The illustration is intentionally replaceable and is **not walking navigation**. Independent student project; not affiliated with Duke University.
 
+The autumn frontend has one continuous West Campus world, ten supplied pixel-art building sprites, bounded pan/zoom, a synchronized minimap, and a responsive building/event modal. Ground, paths, trees and library connectors use simple vectors. Event coverage is resolved dynamically from the API. See [frontend integration and verification](FRONTEND_INTEGRATION.md).
+
 ## Run the demo
 
 Use Node.js 22 LTS or newer (tested here with Node 25.7). From this directory:
