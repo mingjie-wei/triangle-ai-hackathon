@@ -1,5 +1,6 @@
 import { chatRequest } from "../../lib/chat-contract";
 import { failure } from "../http";
+import { recommend } from "./recommend";
 import { retrieve } from "./retrieve";
 import { answer, ChatRateLimit } from "./answer";
 export async function handleChat(
@@ -36,7 +37,10 @@ export async function handleChat(
     );
   }
   try {
-    const result = await generate(input, await retrieveData(input));
+    const result =
+      input.mode === "explore"
+        ? await recommend(input)
+        : await generate(input, await retrieveData(input));
     return Response.json(
       { data: result },
       { headers: { "Cache-Control": "no-store" } },

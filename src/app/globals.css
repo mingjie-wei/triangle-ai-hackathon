@@ -1960,3 +1960,21 @@ p {
 .building-dialog .primary-link { font-size:16px; }
 
 .ask-count { margin:12px 0 4px; font-size:15px; font-weight:700; line-height:1.5; }
+
+/* One active, session-only exploration recommendation. */
+.ask-explore-intro { margin: 0; font-size: 14px; line-height: 1.5; }
+.ask-alex { padding: 8px 10px; color: #173f79; border: 1px solid #b5a382; background: #fff9eb; border-radius: 6px; text-align: left; }
+.ask-recommendation { padding: 18px; margin: 0 0 22px; border: 2px solid #9a793c; border-radius: 10px; background: #fff9e9; font-size: 15px; line-height: 1.6; }
+.ask-recommendation h3 { font-size: 23px; margin: 8px 0; }
+.ask-recommendation h4 { font-size: 16px; margin: 16px 0 4px; }
+.ask-recommendation blockquote { margin: 8px 0; padding: 8px 12px; border-left: 3px solid #b69555; }
+.ask-quest-note, .ask-recommendation details { font-size: 13px; }
+.ask-actions { display:flex; flex-wrap:wrap; gap:8px; margin:14px 0; }
+.ask-actions button { border:1px solid #173f79; border-radius:6px; padding:10px 12px; color:#173f79; background:#fffdf4; font-weight:700; }
+.ask-actions button:last-child { background:#173f79; color:#fffdf4; }
+.ask-diagnostics pre { white-space:pre-wrap; overflow-wrap:anywhere; font-size:11px; }
+
+.ask-current-destination { margin:0; padding:8px 22px; border-bottom:1px solid #d8c7a3; font-size:13px; line-height:1.4; color:#59472e; }
+.ask-recommendation .ask-source { padding:12px; margin:12px 0; }
+.ask-recommendation details { margin-top:10px; }
+.ask-recommendation summary { cursor:pointer; }

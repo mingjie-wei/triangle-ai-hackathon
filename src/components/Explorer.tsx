@@ -182,18 +182,18 @@ export default function Explorer({
         aria-expanded={mobileNav}
         aria-label="Toggle campus sidebar"
       >
-        ☰ <span>Duke Campus</span>
+        ☰ <span>Duke Valley</span>
       </button>
       <aside
         className={`campus-sidebar paper ${mobileNav ? "mobile-open" : ""}`}
         aria-label="Campus explorer sidebar"
       >
-        <Link className="campus-brand" href="/" aria-label="Duke Campus home">
-          <span className="brand-kicker">AROUND DUKE</span>
+        <Link className="campus-brand" href="/" aria-label="Duke Valley home">
+          <span className="brand-kicker">DUKE VALLEY</span>
           <span>
             DUKE
             <br />
-            CAMPUS
+            VALLEY
           </span>
           <span className="brand-chapel" aria-hidden="true">
             ♜
@@ -375,7 +375,10 @@ export default function Explorer({
               ? "Live event index"
               : "Connecting to event API"}
           <span className="connection-divider">/</span>
-          <span>{places.filter((p) => !isMappingPending(p)).length} event-linked places</span>
+          <span>
+            {places.filter((p) => !isMappingPending(p)).length} event-linked
+            places
+          </span>
         </div>
         {!panelOpen && (
           <button
@@ -445,6 +448,16 @@ export default function Explorer({
               | "community",
             day: day || undefined,
             food,
+          }}
+          onRecommend={(id) => {
+            choose(id);
+            setPanelOpen(false);
+          }}
+          onWalkPlace={(id) => {
+            choose(id);
+            setPanelOpen(false);
+            setChatOpen(false);
+            setWalkSelection((v) => v + 1);
           }}
           onOpenPlace={choose}
           onLocatePlace={(id) => {

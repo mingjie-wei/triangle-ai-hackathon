@@ -23,6 +23,8 @@ export const chatFilters = z
   .strict();
 export const chatRequest = z
   .object({
+    mode: z.enum(["events", "explore"]).default("events"),
+    priorRecommendationSlug: z.string().max(100).optional(),
     message: z.string().trim().min(1).max(1000),
     history: z
       .array(
@@ -53,6 +55,7 @@ export type ChatSource = {
   kind: "event" | "place";
   id: string;
   title: string;
+  description?: string;
   url: string | null;
   location: string | null;
   startsAt: string | null;
@@ -63,6 +66,17 @@ export type ChatSource = {
   mapped: boolean;
 };
 export type ChatResponse = {
+  recommendation?: Recommendation;
+  diagnostics?: {
+    requestId: string;
+    mode: "explore";
+    places: number;
+    events: number;
+    totalCandidateEvents: number;
+    modelAttempted: boolean;
+    validation: string;
+    elapsedMs: number;
+  };
   reply: string;
   sources: ChatSource[];
   resolvedScope: {
@@ -80,3 +94,25 @@ export type ChatResponse = {
     fallbackReason?: string;
   };
 };
+
+export type Recommendation =
+  | {
+      status: "ok";
+      requestId: string;
+      recommendationId: string;
+      kind: "verified_event" | "campus_place";
+      buildingSlug: string;
+      placeId: string;
+      placeName: string;
+      eventId: string | null;
+      reason: string;
+      evidenceKeys: string[];
+      quest1: { title: string; description: string };
+      quest2: { conversationStarter: string };
+      limitations: string[];
+    }
+  | {
+      status: "clarification" | "no_match" | "unavailable";
+      requestId: string;
+      message: string;
+    };
