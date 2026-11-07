@@ -1,0 +1,1162 @@
+{
+  "received": 448,
+  "rejected": [],
+  "coverage": "unverified",
+  "locations": [
+    {
+      "label": "Duke Chapel",
+      "focus": "290",
+      "occurrences": 45,
+      "titles": 12,
+      "review": "reviewed"
+    },
+    {
+      "label": null,
+      "focus": null,
+      "occurrences": 20,
+      "titles": 16,
+      "review": "unresolved"
+    },
+    {
+      "label": "Webcast",
+      "focus": null,
+      "occurrences": 17,
+      "titles": 8,
+      "review": "unresolved"
+    },
+    {
+      "label": "East Duke 201 - Nelson Music Room",
+      "focus": "157",
+      "occurrences": 14,
+      "titles": 14,
+      "review": "unresolved"
+    },
+    {
+      "label": "Fitzpatrick 2602 (2nd floor fishbowl)",
+      "focus": null,
+      "occurrences": 13,
+      "titles": 1,
+      "review": "unresolved"
+    },
+    {
+      "label": "Virtual",
+      "focus": null,
+      "occurrences": 12,
+      "titles": 12,
+      "review": "unresolved"
+    },
+    {
+      "label": "Baldwin Auditorium",
+      "focus": "291",
+      "occurrences": 11,
+      "titles": 11,
+      "review": "unresolved"
+    },
+    {
+      "label": "Duke Campus Farm",
+      "focus": "1885",
+      "occurrences": 10,
+      "titles": 3,
+      "review": "unresolved"
+    },
+    {
+      "label": "Bryan Research 103",
+      "focus": "68",
+      "occurrences": 7,
+      "titles": 7,
+      "review": "unresolved"
+    },
+    {
+      "label": "Rubenstein Arts Center, Film Theater",
+      "focus": "351",
+      "occurrences": 7,
+      "titles": 7,
+      "review": "unresolved"
+    },
+    {
+      "label": "Gross Hall, Ahmadieh Family Grand Hall, Room 330",
+      "focus": "203",
+      "occurrences": 7,
+      "titles": 4,
+      "review": "unresolved"
+    },
+    {
+      "label": "Sheafer Lab Theater Bryan Center West Campus",
+      "focus": null,
+      "occurrences": 7,
+      "titles": 1,
+      "review": "reviewed"
+    },
+    {
+      "label": "Duke North, Room 2002",
+      "focus": "284",
+      "occurrences": 6,
+      "titles": 6,
+      "review": "unresolved"
+    },
+    {
+      "label": "Via Zoom",
+      "focus": null,
+      "occurrences": 6,
+      "titles": 2,
+      "review": "unresolved"
+    },
+    {
+      "label": "Duke Medical Pavilion",
+      "focus": "285",
+      "occurrences": 6,
+      "titles": 1,
+      "review": "unresolved"
+    },
+    {
+      "label": "Rubenstein Library Holsti-Anderson Family Assembly Room 153",
+      "focus": "1872",
+      "occurrences": 5,
+      "titles": 5,
+      "review": "reviewed"
+    },
+    {
+      "label": "Online",
+      "focus": null,
+      "occurrences": 5,
+      "titles": 5,
+      "review": "unresolved"
+    },
+    {
+      "label": "Zoom Meeting",
+      "focus": null,
+      "occurrences": 5,
+      "titles": 3,
+      "review": "unresolved"
+    },
+    {
+      "label": "Friedl 225",
+      "focus": "159",
+      "occurrences": 4,
+      "titles": 4,
+      "review": "unresolved"
+    },
+    {
+      "label": "Nasher Museum of Art",
+      "focus": "208",
+      "occurrences": 4,
+      "titles": 4,
+      "review": "unresolved"
+    },
+    {
+      "label": "Smith Warehouse, Ahmadieh Family Lecture Hall, Bay 4, C105",
+      "focus": "1874",
+      "occurrences": 4,
+      "titles": 4,
+      "review": "unresolved"
+    },
+    {
+      "label": "SSRI-Gross Hall 270",
+      "focus": "203",
+      "occurrences": 4,
+      "titles": 4,
+      "review": "unresolved"
+    },
+    {
+      "label": "Duke Eye Center - Albert Eye Research Institute Auditorium",
+      "focus": "47",
+      "occurrences": 4,
+      "titles": 3,
+      "review": "unresolved"
+    },
+    {
+      "label": "Duke South, Room M224",
+      "focus": "302",
+      "occurrences": 4,
+      "titles": 2,
+      "review": "unresolved"
+    },
+    {
+      "label": "Duke Health Lake Norman - EOHW Walk-ins",
+      "focus": null,
+      "occurrences": 4,
+      "titles": 1,
+      "review": "unresolved"
+    },
+    {
+      "label": "Duke Regional Hospital",
+      "focus": "2868",
+      "occurrences": 4,
+      "titles": 1,
+      "review": "unresolved"
+    },
+    {
+      "label": "Duke Raleigh Hospital North Pavilion",
+      "focus": null,
+      "occurrences": 4,
+      "titles": 1,
+      "review": "unresolved"
+    },
+    {
+      "label": "Hanes House 160",
+      "focus": "194",
+      "occurrences": 4,
+      "titles": 1,
+      "review": "unresolved"
+    },
+    {
+      "label": "East Duke Parlors",
+      "focus": "157",
+      "occurrences": 3,
+      "titles": 3,
+      "review": "unresolved"
+    },
+    {
+      "label": "Erwin Square Building, Room B252",
+      "focus": null,
+      "occurrences": 3,
+      "titles": 3,
+      "review": "unresolved"
+    },
+    {
+      "label": "Rubenstein Library Carpenter Conference Room 249",
+      "focus": "1872",
+      "occurrences": 3,
+      "titles": 3,
+      "review": "reviewed"
+    },
+    {
+      "label": "Westbrook 0012",
+      "focus": "333",
+      "occurrences": 3,
+      "titles": 3,
+      "review": "unresolved"
+    },
+    {
+      "label": "Hanes House 131",
+      "focus": "194",
+      "occurrences": 3,
+      "titles": 3,
+      "review": "unresolved"
+    },
+    {
+      "label": "The TEC - Technology Engagement Center",
+      "focus": "206",
+      "occurrences": 3,
+      "titles": 3,
+      "review": "unresolved"
+    },
+    {
+      "label": "Classroom Building, Room 229, Boyd Seminar Room",
+      "focus": "160",
+      "occurrences": 3,
+      "titles": 3,
+      "review": "unresolved"
+    },
+    {
+      "label": "ZOOM",
+      "focus": null,
+      "occurrences": 3,
+      "titles": 3,
+      "review": "unresolved"
+    },
+    {
+      "label": "Wilkinson 021",
+      "focus": null,
+      "occurrences": 3,
+      "titles": 3,
+      "review": "unresolved"
+    },
+    {
+      "label": "Duke North, Room 2001",
+      "focus": "284",
+      "occurrences": 3,
+      "titles": 3,
+      "review": "unresolved"
+    },
+    {
+      "label": "Sanford 223, Rhodes Conference Room",
+      "focus": "202",
+      "occurrences": 3,
+      "titles": 3,
+      "review": "unresolved"
+    },
+    {
+      "label": "Arts Annex",
+      "focus": "239",
+      "occurrences": 3,
+      "titles": 3,
+      "review": "unresolved"
+    },
+    {
+      "label": "UNC-Chapel Hill, Toy Lounge (Dey Hall)",
+      "focus": null,
+      "occurrences": 3,
+      "titles": 2,
+      "review": "unresolved"
+    },
+    {
+      "label": "Hock Plaza, Room 214",
+      "focus": null,
+      "occurrences": 3,
+      "titles": 2,
+      "review": "unresolved"
+    },
+    {
+      "label": "Allen 314",
+      "focus": "38",
+      "occurrences": 3,
+      "titles": 2,
+      "review": "unresolved"
+    },
+    {
+      "label": "Wilkinson Engineering Building, Room 017",
+      "focus": null,
+      "occurrences": 3,
+      "titles": 1,
+      "review": "unresolved"
+    },
+    {
+      "label": "Freeman Center for Jewish Life",
+      "focus": "129",
+      "occurrences": 3,
+      "titles": 1,
+      "review": "unresolved"
+    },
+    {
+      "label": "Divinity School",
+      "focus": "335",
+      "occurrences": 3,
+      "titles": 1,
+      "review": "unresolved"
+    },
+    {
+      "label": "Brodhead 241",
+      "focus": null,
+      "occurrences": 3,
+      "titles": 1,
+      "review": "unresolved"
+    },
+    {
+      "label": "Nanaline Duke 147",
+      "focus": "69",
+      "occurrences": 3,
+      "titles": 1,
+      "review": "unresolved"
+    },
+    {
+      "label": "John Hope Franklin Center, Ahmadieh Family Conference Hall, Room 240",
+      "focus": "2883",
+      "occurrences": 2,
+      "titles": 2,
+      "review": "unresolved"
+    },
+    {
+      "label": "Westbrook 0013",
+      "focus": "333",
+      "occurrences": 2,
+      "titles": 2,
+      "review": "unresolved"
+    },
+    {
+      "label": "Grainger Hall room 1112 and Panopto",
+      "focus": null,
+      "occurrences": 2,
+      "titles": 2,
+      "review": "unresolved"
+    },
+    {
+      "label": "LSRC - DIBS B035 Multipurpose Room",
+      "focus": "95",
+      "occurrences": 2,
+      "titles": 2,
+      "review": "unresolved"
+    },
+    {
+      "label": "Doris Duke Center at Sarah P. Duke Gardens",
+      "focus": "211",
+      "occurrences": 2,
+      "titles": 2,
+      "review": "unresolved"
+    },
+    {
+      "label": "MSRB3, Room 6130, 6th Floor",
+      "focus": null,
+      "occurrences": 2,
+      "titles": 2,
+      "review": "unresolved"
+    },
+    {
+      "label": "Old Chemistry 116",
+      "focus": "99",
+      "occurrences": 2,
+      "titles": 2,
+      "review": "unresolved"
+    },
+    {
+      "label": "Rubenstein Arts Center, Ruby Lounge",
+      "focus": "351",
+      "occurrences": 2,
+      "titles": 2,
+      "review": "unresolved"
+    },
+    {
+      "label": "Wilkinson Building, Room 132",
+      "focus": null,
+      "occurrences": 2,
+      "titles": 2,
+      "review": "unresolved"
+    },
+    {
+      "label": "Bostock Library",
+      "focus": "399",
+      "occurrences": 2,
+      "titles": 2,
+      "review": "reviewed"
+    },
+    {
+      "label": "Jones 143",
+      "focus": "50",
+      "occurrences": 2,
+      "titles": 2,
+      "review": "unresolved"
+    },
+    {
+      "label": "Trent Drive Hall 040",
+      "focus": "151",
+      "occurrences": 2,
+      "titles": 2,
+      "review": "unresolved"
+    },
+    {
+      "label": "Wellness Center, Room 148",
+      "focus": "348",
+      "occurrences": 2,
+      "titles": 2,
+      "review": "unresolved"
+    },
+    {
+      "label": "Karsh Alumni and Visitors Center",
+      "focus": "395",
+      "occurrences": 2,
+      "titles": 2,
+      "review": "unresolved"
+    },
+    {
+      "label": "Fitzpatrick Center Schiciano Auditorium Side A, room 1464",
+      "focus": "98",
+      "occurrences": 2,
+      "titles": 2,
+      "review": "reviewed"
+    },
+    {
+      "label": "Physics 130",
+      "focus": null,
+      "occurrences": 2,
+      "titles": 2,
+      "review": "unresolved"
+    },
+    {
+      "label": "Smith Warehouse - Bay 10, 2nd Floor",
+      "focus": "164",
+      "occurrences": 2,
+      "titles": 2,
+      "review": "unresolved"
+    },
+    {
+      "label": "Richard White Lecture Hall, Room 107",
+      "focus": "158",
+      "occurrences": 2,
+      "titles": 2,
+      "review": "unresolved"
+    },
+    {
+      "label": "Fuqua School of Business Geneen Auditorium",
+      "focus": "272",
+      "occurrences": 2,
+      "titles": 2,
+      "review": "unresolved"
+    },
+    {
+      "label": "Zoom",
+      "focus": null,
+      "occurrences": 2,
+      "titles": 2,
+      "review": "unresolved"
+    },
+    {
+      "label": "Durham County Library",
+      "focus": null,
+      "occurrences": 2,
+      "titles": 2,
+      "review": "unresolved"
+    },
+    {
+      "label": "East Campus",
+      "focus": "2003-E24",
+      "occurrences": 2,
+      "titles": 2,
+      "review": "unresolved"
+    },
+    {
+      "label": "Rubenstein Library Breedlove Room 349",
+      "focus": "1872",
+      "occurrences": 2,
+      "titles": 2,
+      "review": "reviewed"
+    },
+    {
+      "label": "Rubenstein Library Mary Duke Biddle Room",
+      "focus": "1872",
+      "occurrences": 2,
+      "titles": 1,
+      "review": "reviewed"
+    },
+    {
+      "label": "Gross Hall 324",
+      "focus": "203",
+      "occurrences": 2,
+      "titles": 1,
+      "review": "unresolved"
+    },
+    {
+      "label": "Duke Teaching Observatory",
+      "focus": "2888",
+      "occurrences": 2,
+      "titles": 1,
+      "review": "unresolved"
+    },
+    {
+      "label": "Chesterfield Building",
+      "focus": null,
+      "occurrences": 2,
+      "titles": 1,
+      "review": "unresolved"
+    },
+    {
+      "label": "Bryan Center Reynolds Industries Theater",
+      "focus": "1879",
+      "occurrences": 2,
+      "titles": 1,
+      "review": "reviewed"
+    },
+    {
+      "label": "402 Oregon Street, Shaner Room",
+      "focus": "216",
+      "occurrences": 1,
+      "titles": 1,
+      "review": "unresolved"
+    },
+    {
+      "label": "Center for Documentary Studies",
+      "focus": "198",
+      "occurrences": 1,
+      "titles": 1,
+      "review": "unresolved"
+    },
+    {
+      "label": "New Orleans, LA",
+      "focus": null,
+      "occurrences": 1,
+      "titles": 1,
+      "review": "unresolved"
+    },
+    {
+      "label": "Virtual Information Session",
+      "focus": null,
+      "occurrences": 1,
+      "titles": 1,
+      "review": "unresolved"
+    },
+    {
+      "label": "Duke Primary Care Morrisville Conference Room",
+      "focus": null,
+      "occurrences": 1,
+      "titles": 1,
+      "review": "unresolved"
+    },
+    {
+      "label": "Gavins Commons (Classroom Bldg 224)",
+      "focus": null,
+      "occurrences": 1,
+      "titles": 1,
+      "review": "unresolved"
+    },
+    {
+      "label": "Lower Level",
+      "focus": null,
+      "occurrences": 1,
+      "titles": 1,
+      "review": "unresolved"
+    },
+    {
+      "label": "Gross Hall 270",
+      "focus": null,
+      "occurrences": 1,
+      "titles": 1,
+      "review": "unresolved"
+    },
+    {
+      "label": "Duke Regional Behavioral Health Conference",
+      "focus": null,
+      "occurrences": 1,
+      "titles": 1,
+      "review": "unresolved"
+    },
+    {
+      "label": "Gray 319",
+      "focus": null,
+      "occurrences": 1,
+      "titles": 1,
+      "review": "unresolved"
+    },
+    {
+      "label": "Biological Sciences - Room 111",
+      "focus": null,
+      "occurrences": 1,
+      "titles": 1,
+      "review": "unresolved"
+    },
+    {
+      "label": "Trent Semans Center for Health Education, Learning Hall",
+      "focus": "340",
+      "occurrences": 1,
+      "titles": 1,
+      "review": "unresolved"
+    },
+    {
+      "label": "Cardinal Room / Dogwood Room",
+      "focus": null,
+      "occurrences": 1,
+      "titles": 1,
+      "review": "unresolved"
+    },
+    {
+      "label": "Zoom only",
+      "focus": null,
+      "occurrences": 1,
+      "titles": 1,
+      "review": "unresolved"
+    },
+    {
+      "label": "Law School 3043",
+      "focus": "330",
+      "occurrences": 1,
+      "titles": 1,
+      "review": "unresolved"
+    },
+    {
+      "label": "Brodhead Center - 303 Tower Room",
+      "focus": "35",
+      "occurrences": 1,
+      "titles": 1,
+      "review": "reviewed"
+    },
+    {
+      "label": "Grainger Hall Field Auditorium",
+      "focus": "339",
+      "occurrences": 1,
+      "titles": 1,
+      "review": "unresolved"
+    },
+    {
+      "label": "York Room, Gray 229",
+      "focus": null,
+      "occurrences": 1,
+      "titles": 1,
+      "review": "unresolved"
+    },
+    {
+      "label": "French Family Science Center 2231",
+      "focus": "33",
+      "occurrences": 1,
+      "titles": 1,
+      "review": "unresolved"
+    },
+    {
+      "label": "Film Theater in the Rubenstein Arts Center",
+      "focus": null,
+      "occurrences": 1,
+      "titles": 1,
+      "review": "unresolved"
+    },
+    {
+      "label": "Growing Child North Raleigh - Break Room",
+      "focus": null,
+      "occurrences": 1,
+      "titles": 1,
+      "review": "unresolved"
+    },
+    {
+      "label": "Zoom",
+      "focus": null,
+      "occurrences": 1,
+      "titles": 1,
+      "review": "unresolved"
+    },
+    {
+      "label": "NC-State University, Riddick 400P (and Zoom)",
+      "focus": null,
+      "occurrences": 1,
+      "titles": 1,
+      "review": "unresolved"
+    },
+    {
+      "label": "Bostock Library - The Edge Workshop Room",
+      "focus": "399",
+      "occurrences": 1,
+      "titles": 1,
+      "review": "reviewed"
+    },
+    {
+      "label": "Rubenstein Arts Center",
+      "focus": "351",
+      "occurrences": 1,
+      "titles": 1,
+      "review": "unresolved"
+    },
+    {
+      "label": "Fuqua School of Business",
+      "focus": "272",
+      "occurrences": 1,
+      "titles": 1,
+      "review": "unresolved"
+    },
+    {
+      "label": "Zoom",
+      "focus": null,
+      "occurrences": 1,
+      "titles": 1,
+      "review": "unresolved"
+    },
+    {
+      "label": "5th Floor Boardroom, Grainger Hall",
+      "focus": null,
+      "occurrences": 1,
+      "titles": 1,
+      "review": "unresolved"
+    },
+    {
+      "label": "Wilkinson 419",
+      "focus": null,
+      "occurrences": 1,
+      "titles": 1,
+      "review": "unresolved"
+    },
+    {
+      "label": "Virtual",
+      "focus": null,
+      "occurrences": 1,
+      "titles": 1,
+      "review": "unresolved"
+    },
+    {
+      "label": "Old Chemistry 119",
+      "focus": "99",
+      "occurrences": 1,
+      "titles": 1,
+      "review": "unresolved"
+    },
+    {
+      "label": "Social Sciences 136",
+      "focus": "39",
+      "occurrences": 1,
+      "titles": 1,
+      "review": "unresolved"
+    },
+    {
+      "label": "Smith Warehouse - Bay 4, C106 \"Story Lab\"",
+      "focus": "164",
+      "occurrences": 1,
+      "titles": 1,
+      "review": "unresolved"
+    },
+    {
+      "label": "Friedl 126",
+      "focus": "159",
+      "occurrences": 1,
+      "titles": 1,
+      "review": "unresolved"
+    },
+    {
+      "label": "Nasher Museum of Art Auditorium",
+      "focus": "208",
+      "occurrences": 1,
+      "titles": 1,
+      "review": "unresolved"
+    },
+    {
+      "label": "SMITH WAREHOUSE BAY 4",
+      "focus": null,
+      "occurrences": 1,
+      "titles": 1,
+      "review": "unresolved"
+    },
+    {
+      "label": "Charlotte, NC",
+      "focus": null,
+      "occurrences": 1,
+      "titles": 1,
+      "review": "unresolved"
+    },
+    {
+      "label": "Duke South Clinic - Amphitheater",
+      "focus": "296",
+      "occurrences": 1,
+      "titles": 1,
+      "review": "unresolved"
+    },
+    {
+      "label": "Growing Child Kinghtdale - Exam Room",
+      "focus": null,
+      "occurrences": 1,
+      "titles": 1,
+      "review": "unresolved"
+    },
+    {
+      "label": "Friedl 107",
+      "focus": "159",
+      "occurrences": 1,
+      "titles": 1,
+      "review": "unresolved"
+    },
+    {
+      "label": "Fitzpatrick CIEMAS 3121",
+      "focus": "98",
+      "occurrences": 1,
+      "titles": 1,
+      "review": "reviewed"
+    },
+    {
+      "label": "Biddle Music Building, 104",
+      "focus": "169",
+      "occurrences": 1,
+      "titles": 1,
+      "review": "unresolved"
+    },
+    {
+      "label": "328 Allen Undergrad Lounge",
+      "focus": null,
+      "occurrences": 1,
+      "titles": 1,
+      "review": "unresolved"
+    },
+    {
+      "label": "Duke Human Simulation & Patient Safety Center",
+      "focus": null,
+      "occurrences": 1,
+      "titles": 1,
+      "review": "unresolved"
+    },
+    {
+      "label": "JB Duke Hotel",
+      "focus": "355",
+      "occurrences": 1,
+      "titles": 1,
+      "review": "unresolved"
+    },
+    {
+      "label": "John Hope Franklin Center 230-232",
+      "focus": "149",
+      "occurrences": 1,
+      "titles": 1,
+      "review": "unresolved"
+    },
+    {
+      "label": "Duke Health Lake Norman - HR Department",
+      "focus": null,
+      "occurrences": 1,
+      "titles": 1,
+      "review": "unresolved"
+    },
+    {
+      "label": "Duke North Cafeteria",
+      "focus": null,
+      "occurrences": 1,
+      "titles": 1,
+      "review": "unresolved"
+    },
+    {
+      "label": "Zoom only",
+      "focus": null,
+      "occurrences": 1,
+      "titles": 1,
+      "review": "unresolved"
+    },
+    {
+      "label": "French Family Science Center 4233",
+      "focus": "33",
+      "occurrences": 1,
+      "titles": 1,
+      "review": "unresolved"
+    },
+    {
+      "label": "Mary Lou Williams Center",
+      "focus": "1864",
+      "occurrences": 1,
+      "titles": 1,
+      "review": "unresolved"
+    },
+    {
+      "label": "Growing Child Creekstone Spare Office Space",
+      "focus": null,
+      "occurrences": 1,
+      "titles": 1,
+      "review": "unresolved"
+    },
+    {
+      "label": "Trent Semans Center for Health Education - Great Hall",
+      "focus": "340",
+      "occurrences": 1,
+      "titles": 1,
+      "review": "unresolved"
+    },
+    {
+      "label": "Hudson Hall 117",
+      "focus": null,
+      "occurrences": 1,
+      "titles": 1,
+      "review": "unresolved"
+    },
+    {
+      "label": "Carmichael Building - Michelle P. Winn Memorial Lecture Hall",
+      "focus": "397",
+      "occurrences": 1,
+      "titles": 1,
+      "review": "unresolved"
+    },
+    {
+      "label": "Penn Pavilion",
+      "focus": "331",
+      "occurrences": 1,
+      "titles": 1,
+      "review": "unresolved"
+    },
+    {
+      "label": "Sanford 102",
+      "focus": "202",
+      "occurrences": 1,
+      "titles": 1,
+      "review": "unresolved"
+    },
+    {
+      "label": "https://duke.zoom.us/j/98557202348?pwd=CPe1YR",
+      "focus": null,
+      "occurrences": 1,
+      "titles": 1,
+      "review": "unresolved"
+    },
+    {
+      "label": "Zoom",
+      "focus": null,
+      "occurrences": 1,
+      "titles": 1,
+      "review": "unresolved"
+    },
+    {
+      "label": "Online (Register Here)",
+      "focus": null,
+      "occurrences": 1,
+      "titles": 1,
+      "review": "unresolved"
+    },
+    {
+      "label": "MSRB3, Room 1125",
+      "focus": null,
+      "occurrences": 1,
+      "titles": 1,
+      "review": "unresolved"
+    },
+    {
+      "label": "Smith Warehouse",
+      "focus": null,
+      "occurrences": 1,
+      "titles": 1,
+      "review": "unresolved"
+    },
+    {
+      "label": "Duke Regional 1st Floor Private Dining Room C",
+      "focus": null,
+      "occurrences": 1,
+      "titles": 1,
+      "review": "unresolved"
+    },
+    {
+      "label": "Classroom Building, Room 103",
+      "focus": "160",
+      "occurrences": 1,
+      "titles": 1,
+      "review": "unresolved"
+    },
+    {
+      "label": "Energy Hub Lobby, Gross Hall 100",
+      "focus": "203",
+      "occurrences": 1,
+      "titles": 1,
+      "review": "unresolved"
+    },
+    {
+      "label": "Trinity Avenue Presbyterian Church",
+      "focus": null,
+      "occurrences": 1,
+      "titles": 1,
+      "review": "unresolved"
+    },
+    {
+      "label": "Fort Bragg, NC",
+      "focus": null,
+      "occurrences": 1,
+      "titles": 1,
+      "review": "unresolved"
+    },
+    {
+      "label": "Energy Hub Teaching Lab, Gross Hall 100C",
+      "focus": "203",
+      "occurrences": 1,
+      "titles": 1,
+      "review": "unresolved"
+    },
+    {
+      "label": "FFSC 2219",
+      "focus": null,
+      "occurrences": 1,
+      "titles": 1,
+      "review": "unresolved"
+    },
+    {
+      "label": "Growing Child Clayton - Conference Room",
+      "focus": null,
+      "occurrences": 1,
+      "titles": 1,
+      "review": "unresolved"
+    },
+    {
+      "label": "Erwin Square Building, Rm 837",
+      "focus": "256",
+      "occurrences": 1,
+      "titles": 1,
+      "review": "unresolved"
+    },
+    {
+      "label": "Goodson Chapel",
+      "focus": "1849",
+      "occurrences": 1,
+      "titles": 1,
+      "review": "unresolved"
+    },
+    {
+      "label": "K-Ville: Grass outside of Wilson Rec/Card Gym",
+      "focus": null,
+      "occurrences": 1,
+      "titles": 1,
+      "review": "unresolved"
+    },
+    {
+      "label": "Duke Forest, Korstian Division",
+      "focus": null,
+      "occurrences": 1,
+      "titles": 1,
+      "review": "unresolved"
+    },
+    {
+      "label": "Biddle Music Building 19, Bone Hall",
+      "focus": "169",
+      "occurrences": 1,
+      "titles": 1,
+      "review": "unresolved"
+    },
+    {
+      "label": "Medical Center Library Conference Room 212E",
+      "focus": null,
+      "occurrences": 1,
+      "titles": 1,
+      "review": "unresolved"
+    },
+    {
+      "label": "Westbrook 0016",
+      "focus": "333",
+      "occurrences": 1,
+      "titles": 1,
+      "review": "unresolved"
+    },
+    {
+      "label": "MSRB3 1125",
+      "focus": null,
+      "occurrences": 1,
+      "titles": 1,
+      "review": "unresolved"
+    },
+    {
+      "label": "Fredric Jameson Gallery. Friedl Building",
+      "focus": "159",
+      "occurrences": 1,
+      "titles": 1,
+      "review": "unresolved"
+    },
+    {
+      "label": "Clinic 1F, Yellow Zone",
+      "focus": null,
+      "occurrences": 1,
+      "titles": 1,
+      "review": "unresolved"
+    },
+    {
+      "label": "Virtual  Via Zoom",
+      "focus": null,
+      "occurrences": 1,
+      "titles": 1,
+      "review": "unresolved"
+    },
+    {
+      "label": "French Family Science Center 2237",
+      "focus": "33",
+      "occurrences": 1,
+      "titles": 1,
+      "review": "unresolved"
+    },
+    {
+      "label": "Online (Register Here)",
+      "focus": null,
+      "occurrences": 1,
+      "titles": 1,
+      "review": "unresolved"
+    },
+    {
+      "label": "McKimmon Conference and Training Center",
+      "focus": null,
+      "occurrences": 1,
+      "titles": 1,
+      "review": "unresolved"
+    },
+    {
+      "label": "Zoom",
+      "focus": null,
+      "occurrences": 1,
+      "titles": 1,
+      "review": "unresolved"
+    },
+    {
+      "label": "Online (register here)",
+      "focus": null,
+      "occurrences": 1,
+      "titles": 1,
+      "review": "unresolved"
+    },
+    {
+      "label": "Fredric Jameson Gallery. Friedl Building",
+      "focus": null,
+      "occurrences": 1,
+      "titles": 1,
+      "review": "unresolved"
+    },
+    {
+      "label": "Perkins Library, The Link Classroom 2",
+      "focus": "392",
+      "occurrences": 1,
+      "titles": 1,
+      "review": "unresolved"
+    },
+    {
+      "label": "Brodhead Center - Devil's Krafthouse",
+      "focus": "35",
+      "occurrences": 1,
+      "titles": 1,
+      "review": "reviewed"
+    }
+  ]
+}
