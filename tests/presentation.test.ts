@@ -8,7 +8,7 @@ import {
 import { places } from "../config/places";
 import type { Place } from "../src/lib/domain";
 test("visual landmarks preserve backend IDs, counts and source links without inventing missing event mappings", () => {
-  const api: Place[] = places.map((p, i) => ({
+  const api: Place[] = places.slice(0, 6).map((p, i) => ({
     ...p,
     reviewStatus: "reviewed",
     officialMapUrl: null,

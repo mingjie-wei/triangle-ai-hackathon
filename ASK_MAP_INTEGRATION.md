@@ -11,7 +11,7 @@ Starting checkout: 4cd4fd9, with uncommitted continuous-map work. With user appr
 - src/lib/chat-contract.ts: strict request validation and shared response types. Questions are 1–1000 characters, history at most six bounded user/assistant entries, previous event IDs at most eight UUIDs. Request bodies are bounded to 20 KB even without Content-Length.
 - src/app/api/chat/route.ts and src/server/chat/handler.ts: Node POST route with no-store responses and stable INVALID_REQUEST, DATA_UNAVAILABLE and RATE_LIMITED errors.
 - src/server/chat/retrieve.ts: calls the existing search service directly in fixture/live mode. Keeps existing eligibility, stable IDs, categories, source links and metadata. Explicit building names override selected context. Campus-wide is the default, even when a map building is selected.
-- src/server/chat/answer.ts: optional Claude extractive selection with server-built actions, strict citation/title validation, bounded 8-second provider timeout, bounded output and factual retrieval fallback.
+- src/server/chat/answer.ts: optional DeepSeek extractive selection with server-built actions, strict citation/title validation, bounded 8-second provider timeout, bounded output and factual retrieval fallback.
 - src/components/AskMap.tsx: React transcript, starters, scope, opt-in filters, sources, pending/error/retry state and typed callbacks. One request in flight; retry replaces the failed turn, closing does not cancel/duplicate it, unmount aborts. No browser or database persistence.
 - Explorer wiring reuses choose/reveal and the building dialog. Locate collapses chat and focuses the map. Building details closes chat before opening the existing dialog. No geometry, mapping or event aliases changed.
 - src/app/page.tsx supplies one server-created discovery clock to both Explorer and Ask Map, including when the index is unavailable. There is no clock drift between map and chat.
@@ -34,27 +34,27 @@ Today/tomorrow/weekends use America/New_York. Weekend is Saturday 00:00 through 
 
 Use current filters defaults off; opted-in filters are shown and intersected. Conflicting dates request clarification. Chat never silently edits map filters. Historical answers retain their request context; changing the scope selector affects only future requests. Follow-ups use validated IDs, not free-form history inference.
 
-## Optional Claude and cost control
+## Optional DeepSeek and cost control
 
 Retrieval-only mode requires no API key. Set server-only variables from .env.example:
 - CHAT_MODEL_ENABLED=true
-- ANTHROPIC_API_KEY
-- ANTHROPIC_MODEL: an exact model ID available to the account; no prototype default is assumed.
+- DEEPSEEK_API_KEY
+- DEEPSEEK_MODEL: an exact model ID available to the account; no prototype default is assumed.
 
-The adapter checks GET /v1/models/{id} before POST /v1/messages. Uses native fetch, the documented 2023-06-01 version header and no SDK dependency. API reference: [Messages](https://platform.claude.com/docs/en/api/messages/create) and [Models](https://platform.claude.com/docs/en/api/models/list).
+The adapter uses native fetch to POST `https://api.deepseek.com/chat/completions`, with Bearer authorization, the configured model ID, JSON-object output, a 500-token budget, and thinking disabled for this bounded extractive task. There is no model-preflight request or SDK dependency. [Official API reference](https://api-docs.deepseek.com/api/create-chat-completion/). No example model ID is assumed to be available to the account.
 
-This first release deliberately allows Claude to select exact title extracts from at most eight retrieved records, not generate unverifiable practical advice. Unknown citations, duplicate citations, invented text, malformed JSON and provider failures fall back to retrieved facts. URLs/IDs/actions never come from model output. User questions and records are sent as untrusted data; no tool execution, secrets, arbitrary actions or conversation logging. Optional model calls send the question and bounded candidate records to Anthropic; history is accepted for contract compatibility but not forwarded or persisted.
+This first release deliberately allows DeepSeek to select exact title extracts from at most eight retrieved records, not generate unverifiable practical advice. Unknown citations, duplicate citations, invented text, malformed JSON and provider failures fall back to retrieved facts. URLs/IDs/actions never come from model output. User questions and records are sent as untrusted data; no tool execution, secrets, arbitrary actions or conversation logging. Optional model calls send the question and bounded candidate records to DeepSeek; history is accepted for contract compatibility but not forwarded or persisted.
 
 In production, model access fails closed to retrieval-only unless a shared Redis REST limiter is configured:
 - CHAT_RATE_LIMIT_URL and CHAT_RATE_LIMIT_TOKEN (dedicated HTTPS Redis REST endpoint, e.g. Upstash)
 - CHAT_MODEL_REQUESTS_PER_MINUTE (default 20, validated range 1–100)
 
-An atomic EVAL increments a global minute bucket and sets expiry. Exceeded limits return RATE_LIMITED/429; missing/broken limiter returns factual retrieval fallback without calling Anthropic. This is cross-instance model cost control, not per-user authentication or a daily spend budget. Use provider spend limits and hosting request protection before public rollout; retrieval/database abuse protection remains a hosting responsibility. Never expose these secrets with NEXT_PUBLIC_. No model key is needed for builds or tests.
+An atomic EVAL increments a global minute bucket and sets expiry. Exceeded limits return RATE_LIMITED/429; missing/broken limiter returns factual retrieval fallback without calling DeepSeek. This is cross-instance model cost control, not per-user authentication or a daily spend budget. Use provider spend limits and hosting request protection before public rollout; retrieval/database abuse protection remains a hosting responsibility. Never expose these secrets with NEXT_PUBLIC_. No model key is needed for builds or tests.
 
-## Verification
+## Current revision and verification
 
-Typecheck, ESLint, production build and automated tests pass. Suite: 40 passed, one PostgreSQL integration test skipped without a test database. Sixteen chat tests cover strict input, Eastern DST intervals, real retrieval, explicit/context precedence, pending/unknown buildings, unsupported dates, filter conflict, follow-up ID revalidation, cancellations, unmapped sources, missing/failed providers, invalid generated claims/citations, valid model extracts, production limiter gating and route errors.
+The November 7 revision selectively integrates Ask Map changes from `origin/main` at `5fd283177bb6d806b59b8d08d0f2996ee3994c6e` into design HEAD `89ba91cec57c81834b8cfb78cb978ed6019ab897`, preserving pending painted-map and ten-building work. This is an uncommitted file-level integration, not a Git merge commit. See [revision report](reports/ask-map-collision-revision.md) for checks, geometry changes, evidence and limits. The earlier Git handoff above is historical.
 
-Browser verified at 1440×900 and 390×844: real music results, tomorrow follow-up, transcript retained after close/reopen, source Locate focusing the existing map, source Building details opening exactly one native dialog, Escape and Tab containment, mobile overflow and long source lists. Screenshots: reports/ask-map-desktop.png, ask-map-mobile.png and ask-map-source-action.png. Provider failures and database failures use deterministic tests; no live Anthropic smoke test or live database check was run. Physical device keyboards/touch and hosting-level limits still require deployment testing.
+The UI counts only event cards in “Showing X of Y events”; Y is the retrieved total. Model-selected highlights can be fewer than the complete displayed source list. Citation keys and all retrieved cards are retained. `onOpenChange` and combined chat/dialog pause state remain wired to the iframe; source actions close chat before locating a canonical place or opening the existing dialog.
 
-Existing map camera, event filters, pagination and popup code remain intact. Integrated /api/chat compiles as a Next route. No account, vector database, schema migration, new ingestion pipeline or additional building coverage was introduced.
+Provider mocks cover grounded extracts, friendly replies, malformed output, altered titles, unknown/duplicate/place citations, failures, missing configuration and production limiter behavior. No real DeepSeek smoke test was run: this environment has no configured key/model and model use is disabled. A successful retrieval response is not evidence of model execution. Inspect `meta.answerMode` and `meta.fallbackReason` when validating a configured provider. No live PostgreSQL validation was available; database integration tests are explicitly skipped without a disposable test database.

@@ -155,3 +155,7 @@ export function mergeLandmarks(apiPlaces: Place[]): Place[] {
     ...apiPlaces.filter((p) => !landmarks.some((l) => l.slug === p.slug)),
   ];
 }
+
+export function isMappingPending(place: Place) {
+  return isVisualOnly(place.id) || place.reviewStatus !== "reviewed";
+}

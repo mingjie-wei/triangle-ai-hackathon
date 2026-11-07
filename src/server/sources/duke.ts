@@ -25,9 +25,14 @@ export function plain(v: string) {
     .trim();
 }
 export function resolveLocation(label: string | null, ref: string | null) {
-  const byRef = places.find((p) => ref && p.refs.includes(ref));
+  const byRef = places.find(
+    (p) => p.reviewStatus === "reviewed" && ref && p.refs.includes(ref),
+  );
   const byAlias = places.find(
-    (p) => label && p.aliases.some((a) => normalize(a) === normalize(label)),
+    (p) =>
+      p.reviewStatus === "reviewed" &&
+      label &&
+      p.aliases.some((a) => normalize(a) === normalize(label)),
   );
   const conflict = Boolean(byRef && byAlias && byRef.id !== byAlias.id);
   return {

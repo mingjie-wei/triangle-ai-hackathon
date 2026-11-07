@@ -9,7 +9,7 @@ import {
 import {
   landmarks,
   mergeLandmarks,
-  isVisualOnly,
+  isMappingPending,
 } from "../../lib/presentation";
 import type {
   ChatRequest,
@@ -227,7 +227,7 @@ export async function retrieve(
     placeSlug: place!.slug,
     mapped: landmarks.some((l) => l.slug === place!.slug),
   });
-  if (place && isVisualOnly(place.id)) {
+  if (place && isMappingPending(place)) {
     result.sources = [placeSource()];
     return clarify(
       "This building is on the map, but its event mapping is pending. This does not mean it has no events. You can open its building guide. [P1]",

@@ -5,6 +5,7 @@ import { requestedWindow, retrieve } from "../src/server/chat/retrieve";
 import {
   answer,
   validateAnswer,
+  guideReply,
   ChatRateLimit,
 } from "../src/server/chat/answer";
 import { handleChat } from "../src/server/chat/handler";
@@ -80,9 +81,21 @@ test("campus-wide stays broad despite a selected slug", async () => {
   assert.ok(r.resolvedScope.totalMatches > 45);
 });
 test("pending, unknown building, unsupported requirements and outside coverage clarify", async () => {
-  const pending = await retrieve(input("What is happening at Penn Pavilion?"));
+  const pending = await retrieve(
+    input("What is happening at Penn Pavilion?"),
+    async (f) => {
+      const data = await search(f);
+      return {
+        ...data,
+        places: data.places.map((p) =>
+          p.slug === "penn-pavilion" ? { ...p, reviewStatus: "pending" } : p,
+        ),
+      };
+    },
+  );
   assert.match(pending.reply, /mapping is pending/);
-  assert.equal(pending.sources[0].id, "visual:penn-pavilion");
+  assert.equal(pending.sources[0].placeSlug, "penn-pavilion");
+  assert.ok(!pending.sources[0].id.startsWith("visual:"));
   assert.ok(
     (await retrieve(input("events at imaginary hall"))).meta.clarification,
   );
@@ -157,8 +170,8 @@ test("missing provider and provider timeout return retrieval facts", async () =>
   };
   const fallback = await answer(request, r, fail, {
     CHAT_MODEL_ENABLED: "true",
-    ANTHROPIC_API_KEY: "test",
-    ANTHROPIC_MODEL: "test",
+    DEEPSEEK_API_KEY: "test",
+    DEEPSEEK_MODEL: "test",
     NODE_ENV: "test",
   });
   assert.equal(fallback.reply, r.reply);
@@ -193,35 +206,137 @@ test("unknown citations and invented/injected prose are rejected", async () => {
 test("model path validates exact record extracts and never model URLs", async () => {
   const request = input("music"),
     r = await retrieve(request);
-  let calls = 0;
-  const mock: typeof fetch = async () => {
-    calls++;
-    return Response.json(
-      calls === 1
-        ? { id: "test" }
-        : {
-            content: [
-              {
-                type: "text",
-                text: JSON.stringify({
-                  segments: [
-                    { sourceId: r.sources[0].key, text: r.sources[0].title },
-                  ],
-                }),
-              },
-            ],
+  const seen: { url: string; init?: RequestInit }[] = [];
+  const mock: typeof fetch = async (url, init) => {
+    seen.push({ url: String(url), init });
+    return Response.json({
+      choices: [
+        {
+          message: {
+            content: JSON.stringify({
+              segments: [
+                { sourceId: r.sources[0].key, text: r.sources[0].title },
+              ],
+            }),
           },
-    );
+        },
+      ],
+    });
   };
   const result = await answer(request, r, mock, {
     CHAT_MODEL_ENABLED: "true",
-    ANTHROPIC_API_KEY: "test",
-    ANTHROPIC_MODEL: "test",
+    DEEPSEEK_API_KEY: "test-key",
+    DEEPSEEK_MODEL: "deepseek-flash",
     NODE_ENV: "test",
   });
   assert.equal(result.meta.answerMode, "model");
   assert.deepEqual(result.sources, r.sources);
-  assert.equal(calls, 2);
+  assert.equal(seen.length, 1);
+  assert.equal(seen[0].url, "https://api.deepseek.com/chat/completions");
+  assert.equal(seen[0].init?.method, "POST");
+  assert.equal(
+    (seen[0].init?.headers as Record<string, string>).Authorization,
+    "Bearer test-key",
+  );
+  assert.equal(JSON.parse(String(seen[0].init?.body)).model, "deepseek-flash");
+});
+test("friendly guide reply uses only validated titles and citations (Bryan Center)", async () => {
+  const request = input("What events are happening at Bryan Center?"),
+    r = await retrieve(request);
+  const e1 = r.sources.find((s) => s.key === "E1")!,
+    e5 = r.sources.find((s) => s.key === "E5")!;
+  const mock =
+    (segments: unknown): typeof fetch =>
+    async () =>
+      Response.json({
+        choices: [{ message: { content: JSON.stringify({ segments }) } }],
+      });
+  const env: NodeJS.ProcessEnv = {
+    CHAT_MODEL_ENABLED: "true",
+    DEEPSEEK_API_KEY: "test",
+    DEEPSEEK_MODEL: "test",
+    NODE_ENV: "test",
+  };
+  const two = await answer(
+    request,
+    r,
+    mock([
+      { sourceId: "E1", text: e1.title },
+      { sourceId: "E5", text: e5.title },
+    ]),
+    env,
+  );
+  assert.equal(two.meta.answerMode, "model");
+  assert.equal(
+    two.reply,
+    `If you're heading to Bryan Center, two events to check out are ${e1.title} [E1] and ${e5.title} [E5]. Tap an event card below for times and the official listing.`,
+  );
+  assert.deepEqual(two.sources, r.sources);
+  assert.doesNotMatch(two.reply, /Found \d+ matching|Highlights:/);
+  const one = await answer(
+    request,
+    r,
+    mock([{ sourceId: "E1", text: e1.title }]),
+    env,
+  );
+  assert.match(
+    one.reply,
+    /^If you're heading to Bryan Center, one event to check out is /,
+  );
+  // Ungrounded titles still fall back to the unchanged retrieval reply.
+  const bad = await answer(
+    request,
+    r,
+    mock([{ sourceId: "E1", text: "Free pizza at Bryan Center" }]),
+    env,
+  );
+  assert.equal(bad.reply, r.reply);
+  assert.equal(bad.meta.answerMode, "retrieval");
+  // Campus-wide results have no place lead-in.
+  const campus = await retrieve(input("music"));
+  assert.match(
+    guideReply([{ sourceId: "E1", text: campus.sources[0].title }], campus),
+    /^One event to check out is /,
+  );
+});
+test("DeepSeek errors and invalid or ungrounded output fall back to retrieval", async () => {
+  const request = input("music"),
+    r = await retrieve(request);
+  const env: NodeJS.ProcessEnv = {
+    CHAT_MODEL_ENABLED: "true",
+    DEEPSEEK_API_KEY: "test",
+    DEEPSEEK_MODEL: "test",
+    NODE_ENV: "test",
+  };
+  const reply =
+    (content: string): typeof fetch =>
+    async () =>
+      Response.json({ choices: [{ message: { content } }] });
+  const cases: [typeof fetch, string][] = [
+    [async () => new Response("no", { status: 500 }), "PROVIDER_UNAVAILABLE"],
+    [reply("not json"), "PROVIDER_OR_VALIDATION_FAILURE"],
+    [
+      reply(
+        JSON.stringify({ segments: [{ sourceId: "E1", text: "Free food!" }] }),
+      ),
+      "PROVIDER_OR_VALIDATION_FAILURE",
+    ],
+    [
+      async () => Response.json({ unexpected: true }),
+      "PROVIDER_OR_VALIDATION_FAILURE",
+    ],
+  ];
+  for (const [mock, reason] of cases) {
+    const out = await answer(request, r, mock, env);
+    assert.equal(out.meta.answerMode, "retrieval");
+    assert.equal(out.meta.fallbackReason, reason);
+    assert.equal(out.reply, r.reply);
+  }
+  const noKey = await answer(request, r, fetch, {
+    ...env,
+    DEEPSEEK_API_KEY: "",
+  });
+  assert.equal(noKey.meta.fallbackReason, "MODEL_NOT_CONFIGURED");
 });
 test("public model mode fails closed without a shared rate limit", async () => {
   const request = input("music"),
@@ -231,8 +346,8 @@ test("public model mode fails closed without a shared rate limit", async () => {
   };
   const result = await answer(request, r, mock, {
     CHAT_MODEL_ENABLED: "true",
-    ANTHROPIC_API_KEY: "test",
-    ANTHROPIC_MODEL: "test",
+    DEEPSEEK_API_KEY: "test",
+    DEEPSEEK_MODEL: "test",
     NODE_ENV: "production",
   });
   assert.equal(result.meta.fallbackReason, "MODEL_LIMIT_UNAVAILABLE");
@@ -273,4 +388,14 @@ test("topic matching uses whole words, not art inside department", async () => {
     events: [event],
   }));
   assert.equal(r.sources.length, 0);
+});
+test('DeepSeek rejects duplicate and place citations while preserving retrieved event cards',async()=>{
+ const request=input('music'),r=await retrieve(request),s=r.sources[0];
+ const env: NodeJS.ProcessEnv={CHAT_MODEL_ENABLED:'true',DEEPSEEK_API_KEY:'test',DEEPSEEK_MODEL:'test',NODE_ENV:'test'};
+ for(const segments of [[{sourceId:s.key,text:s.title},{sourceId:s.key,text:s.title}],[{sourceId:'missing',text:s.title}]]){
+  const out=await answer(request,r,async()=>Response.json({choices:[{message:{content:JSON.stringify({segments})}}]}),env);
+  assert.equal(out.meta.answerMode,'retrieval');assert.equal(out.meta.fallbackReason,'PROVIDER_OR_VALIDATION_FAILURE');assert.deepEqual(out.sources,r.sources);
+ }
+ const place={...s,key:'P1',kind:'place' as const};
+ assert.throws(()=>validateAnswer({segments:[{sourceId:'P1',text:place.title}]},{...r,sources:[place,...r.sources]}),/INVALID_GROUNDING/);
 });

@@ -1925,3 +1925,38 @@ p {
  .ask-privacy { padding-bottom:max(10px,env(safe-area-inset-bottom)); }
 }
 @media(max-height:550px) { .ask-header p,.ask-header .eyebrow { display:none; } .ask-header { padding:10px 16px; } .ask-scope { padding:6px 16px; } .ask-launcher { top:105px; } }
+
+/* A single continuous painted campus; parent keeps the authoritative API UI. */
+.campus-main .painted-map{inset:0;width:auto;height:auto;background:#657c3d}
+.painted-map .map-surface{inset:0;width:100%;height:100%;border:0;border-radius:0;display:block;cursor:auto}
+.painted-map-status{position:absolute;left:50%;top:46%;transform:translate(-50%,-50%);padding:18px 24px;z-index:4}
+.painted-map-status button{display:block;margin-top:12px}
+.walk-entrance{display:block;margin-top:12px}
+@media(max-width:700px){.campus-main .connection-status{max-width:calc(100% - 20px);font-size:10px;top:76px;right:10px}.campus-main .reopen-panel{top:112px;right:10px}}
+
+/* Readable discovery content; preserve the existing artwork and brand scale. */
+.campus-app .location-list button { padding:12px 8px; gap:12px; }
+.campus-app .location-list button > span:not(.location-icon) { flex:1; min-width:0; font:700 17px/1.35 var(--serif); overflow-wrap:anywhere; }
+.campus-app .location-list small { font:14px/1.45 var(--ui); color:#70583c; margin-top:5px; }
+.campus-app .location-list b { font:600 14px var(--ui); min-width:28px; }
+.campus-app input,.campus-app select,.campus-app .filter-chips button { font-size:16px; }
+.building-dialog .event-title { font-size:20px; line-height:1.4; }
+.building-dialog .event-card p,.building-dialog .event-card .room,.building-dialog .event-card a { font-size:15px; line-height:1.5; color:#6c5135; }
+.building-dialog .event-card a { color:#174582; }
+.building-dialog .event-category,.building-dialog .event-list-label,.building-dialog .eyebrow { font-size:12px; letter-spacing:.6px; }
+.building-dialog .event-date > span { font-size:12px; }
+.building-dialog .event-card { grid-template-columns:45px minmax(0,1fr); gap:14px; padding:18px 0; }
+.building-dialog .building-about p { font-size:17px; line-height:1.6; }
+.building-dialog .dialog-filter-summary,.building-dialog .building-dialog-footer small { font-size:14px; }
+.building-about .primary-link { margin:8px 8px 4px 0; font-size:16px; }
+.building-dialog .walk-entrance { display:inline-flex; }
+.building-dialog .official-map-link { font-size:15px; }
+.building-dialog .empty-state p,.building-dialog .event-detail p { font-size:16px; line-height:1.6; }
+@media(max-width:700px){
+ .building-dialog .event-title { font-size:19px; }
+ .building-dialog .building-dialog-footer { gap:12px; flex-wrap:wrap; }
+ .building-dialog .building-dialog-footer small { max-width:100%; flex:1 1 140px; }
+}
+.building-dialog .primary-link { font-size:16px; }
+
+.ask-count { margin:12px 0 4px; font-size:15px; font-weight:700; line-height:1.5; }

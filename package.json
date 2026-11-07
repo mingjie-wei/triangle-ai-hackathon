@@ -8,11 +8,12 @@
     "start": "next start",
     "typecheck": "tsc --noEmit",
     "lint": "eslint .",
-    "test": "tsx --test tests/*.test.ts",
+    "test": "tsx --test tests/*.test.ts tests/*.test.mjs",
     "db:migrate": "tsx --env-file-if-exists=.env scripts/manage.ts migrate",
     "db:seed": "tsx --env-file-if-exists=.env scripts/manage.ts seed",
     "sync:duke": "tsx --env-file-if-exists=.env scripts/manage.ts sync",
-    "inventory:duke": "tsx --env-file-if-exists=.env scripts/manage.ts inventory"
+    "inventory:duke": "tsx --env-file-if-exists=.env scripts/manage.ts inventory",
+    "test:map": "node --test tests/campus-embed.test.mjs tests/campus-physics.test.mjs"
   },
   "dependencies": {
     "drizzle-orm": "0.45.4",
