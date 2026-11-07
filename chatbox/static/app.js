@@ -4,7 +4,7 @@ const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;
 const api = (p, o) => fetch(p, o).then(r => r.json());
 let buildings = [], near = "duke-chapel", history = [];
 
-const EXAMPLES = ["What music events are happening?", "Any AI talks for beginners?", "校园里有什么艺术展览?", "What's near the Chapel?"];
+const EXAMPLES = ["What music events are happening?", "Any AI talks for beginners?", "Any art exhibits this week?", "What's near the Chapel?"];
 
 async function init() {
   buildings = await api("/api/buildings");

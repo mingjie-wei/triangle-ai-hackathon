@@ -28,10 +28,7 @@ def init():
         c.execute("INSERT INTO corpus VALUES(?,?,?)", (f"E:{i}", "E", " ".join([e[0], e[1], bname, e[3], e[4], e[5], e[6], e[8], e[9]])))
     c.commit(); c.close()
 
-SYN = {"音乐": "music concert", "艺术": "art exhibit", "人工智能": "AI", "展览": "exhibit art",
-       "图书馆": "library", "教堂": "chapel", "讲座": "talk", "工作坊": "workshop", "学生": "student",
-       "今天": "", "活动": "event", "食物": "food", "吃": "food dining", "爵士": "jazz", "戏剧": "theater play",
-       "免费": "free", "初学者": "beginner", "新手": "beginner"}
+SYN = {}  # English only for now; add synonyms here if needed
 
 def expand(q: str) -> list[str]:
     extra = [v for k, v in SYN.items() if k in q]
