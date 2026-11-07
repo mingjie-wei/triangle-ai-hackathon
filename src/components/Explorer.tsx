@@ -8,6 +8,7 @@ import CampusMap from "./CampusMap";
 import PlacePanel from "./PlacePanel";
 import BuildingDialog from "./BuildingDialog";
 import FeedStatus from "./FeedStatus";
+import AskMap from "./AskMap";
 type Payload<T> = {
   data: { items: T[]; total?: number; next_cursor: string | null };
   meta: Meta;
@@ -15,10 +16,10 @@ type Payload<T> = {
 };
 export default function Explorer({
   demo,
-  fixtureAsOf,
+  initialAsOf,
 }: {
   demo: boolean;
-  fixtureAsOf: string;
+  initialAsOf: string;
 }) {
   const [places, setPlaces] = useState<Place[]>([]),
     [events, setEvents] = useState<EventRecord[]>([]),
@@ -39,7 +40,7 @@ export default function Explorer({
     [panelOpen, setPanelOpen] = useState(false),
     [mobileNav, setMobileNav] = useState(false),
     [revealSelection, setRevealSelection] = useState(0);
-  const asOf = useRef(demo ? fixtureAsOf : new Date().toISOString()),
+  const asOf = useRef(initialAsOf),
     initialized = useRef(false);
   const displayPlaces = mergeLandmarks(places);
   const place = displayPlaces.find((p) => p.id === selected) ?? null;
@@ -378,24 +379,73 @@ export default function Explorer({
             ▤ {place?.name ?? "Campus events"} <span>↗</span>
           </button>
         )}
-        <BuildingDialog open={panelOpen} place={place}
+        <BuildingDialog
+          open={panelOpen}
+          place={place}
           onClose={() => setPanelOpen(false)}
-          onLocate={() => { setPanelOpen(false); setRevealSelection(v => v + 1); }}
-          filterSummary={[query && `“${query}”`, category !== "all" && categoryNames[category as keyof typeof categoryNames], day, food && "Free food"].filter(Boolean).join(" · ")}
-          onClearFilters={() => { setQuery(""); setCategory("all"); setDay(""); setFood(false); setCursor(null); setEvent(null); }}>
-
-            <PlacePanel
-              place={place}
-              event={event}
-              events={events}
-              loading={loading}
-              error={error}
-              next={next}
-              onMore={() => setCursor(next)}
-              onEvent={setEvent}
-              onRetry={() => setRetry((v) => v + 1)}
-            />
+          onLocate={() => {
+            setPanelOpen(false);
+            setRevealSelection((v) => v + 1);
+          }}
+          filterSummary={[
+            query && `“${query}”`,
+            category !== "all" &&
+              categoryNames[category as keyof typeof categoryNames],
+            day,
+            food && "Free food",
+          ]
+            .filter(Boolean)
+            .join(" · ")}
+          onClearFilters={() => {
+            setQuery("");
+            setCategory("all");
+            setDay("");
+            setFood(false);
+            setCursor(null);
+            setEvent(null);
+          }}
+        >
+          <PlacePanel
+            place={place}
+            event={event}
+            events={events}
+            loading={loading}
+            error={error}
+            next={next}
+            onMore={() => setCursor(next)}
+            onEvent={setEvent}
+            onRetry={() => setRetry((v) => v + 1)}
+          />
         </BuildingDialog>
+        <AskMap
+          place={place}
+          demo={demo}
+          asOf={initialAsOf}
+          buildingOpen={panelOpen}
+          currentFilters={{
+            q: query,
+            category: category as
+              | "all"
+              | "arts"
+              | "talks"
+              | "learning"
+              | "info"
+              | "wellbeing"
+              | "community",
+            day: day || undefined,
+            food,
+          }}
+          onOpenPlace={choose}
+          onLocatePlace={(id) => {
+            choose(id);
+            setPanelOpen(false);
+            requestAnimationFrame(() =>
+              document
+                .querySelector<HTMLElement>(".map-surface")
+                ?.focus({ preventScroll: true }),
+            );
+          }}
+        />
         <div className="data-footnote">
           <FeedStatus meta={meta} demo={demo} />
           <span>Eastern time · Official listings remain authoritative</span>

@@ -5,7 +5,11 @@ export default function Page() {
   return (
     <Explorer
       demo={process.env.DATA_MODE === "fixture"}
-      fixtureAsOf={FIXTURE_AS_OF}
+      initialAsOf={
+        process.env.DATA_MODE === "fixture"
+          ? FIXTURE_AS_OF
+          : new Date().toISOString()
+      }
     />
   );
 }

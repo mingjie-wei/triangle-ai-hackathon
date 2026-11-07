@@ -97,3 +97,7 @@ Ask Map is intentionally deferred until the live Phase 1 acceptance checks pass.
 ## Documentation checked
 
 [Next.js installation](https://nextjs.org/docs/app/getting-started/installation), [Route Handlers](https://nextjs.org/docs/app/getting-started/route-handlers), [Drizzle PostgreSQL](https://orm.drizzle.team/docs/get-started-postgresql), [Vercel Next.js](https://vercel.com/docs/frameworks/full-stack/nextjs), [connection pooling](https://vercel.com/kb/guide/connection-pooling-with-functions), [cron limits](https://vercel.com/docs/cron-jobs/usage-and-pricing), [Duke API catalog](https://api-catalog.oit.duke.edu/apis/6), [Duke feed builder](https://urlbuilder.calendar.duke.edu/), and [Duke calendar guidance](https://calendar.duke.edu/help).
+
+## Ask Map
+
+Open **Ask Map** to ask about events, a building, today, tomorrow, or this weekend. Answers use the same fixture/live index as the map and include official links and available building actions. Scope is campus-wide by default; selected-building context and current filters are explicit opt-ins. Retrieval-only mode works without a provider key. See [Ask Map integration, configuration and verification](ASK_MAP_INTEGRATION.md).
