@@ -311,6 +311,16 @@ export default function AskMap({
                       <span key={note}>{note}</span>
                     ))}
                   </div>
+                  {turn.response.resolvedScope.totalMatches > 0 &&
+                    turn.response.sources.some((x) => x.kind === "event") && (
+                      <p className="ask-count">
+                        Showing {turn.response.sources.length} of{" "}
+                        {turn.response.resolvedScope.totalMatches} event
+                        {turn.response.resolvedScope.totalMatches === 1
+                          ? ""
+                          : "s"}
+                      </p>
+                    )}
                   <div className="ask-source-list">
                     {turn.response.sources.map((source) => (
                       <SourceCard
@@ -327,7 +337,7 @@ export default function AskMap({
                     ·{" "}
                     {turn.response.meta.answerMode === "retrieval"
                       ? "Retrieval-only answer"
-                      : "Claude-selected sources"}
+                      : "AI-selected sources"}
                     {turn.response.meta.fallbackReason &&
                     turn.response.meta.fallbackReason !== "MODEL_NOT_CONFIGURED"
                       ? " · Model unavailable; showing retrieved facts"
