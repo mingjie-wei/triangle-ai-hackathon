@@ -9,3 +9,7 @@ export ANTHROPIC_API_KEY=...   # optional; without it the offline extractive fal
 .venv/bin/uvicorn app:app --port 8000
 ```
 Open http://localhost:8000. Hooks: `window.CampusChat.setNear(slug)`; a `campus:locate` CustomEvent fires on "Map".
+
+## Integrated application
+
+This directory is retained as the original standalone prototype. Its SQLite sample records and local IDs are **not** used by the Next.js map. For the source-backed Ask Map feature, run the repository-root Next.js app and see [ASK_MAP_INTEGRATION.md](../ASK_MAP_INTEGRATION.md). No Python server is required for that feature.

@@ -2,6 +2,8 @@
 
 A Next.js / React / TypeScript campus event explorer: select a place, filter upcoming and ongoing events, and open the official Duke listing. The illustration is intentionally replaceable and is **not walking navigation**. Independent student project; not affiliated with Duke University.
 
+The autumn frontend has one continuous West Campus world, ten supplied pixel-art building sprites, bounded pan/zoom, a synchronized minimap, and a responsive building/event modal. Ground, paths, trees and library connectors use simple vectors. Event coverage is resolved dynamically from the API. See [frontend integration and verification](FRONTEND_INTEGRATION.md).
+
 ## Run the demo
 
 Use Node.js 22 LTS or newer (tested here with Node 25.7). From this directory:
@@ -95,3 +97,7 @@ Ask Map is intentionally deferred until the live Phase 1 acceptance checks pass.
 ## Documentation checked
 
 [Next.js installation](https://nextjs.org/docs/app/getting-started/installation), [Route Handlers](https://nextjs.org/docs/app/getting-started/route-handlers), [Drizzle PostgreSQL](https://orm.drizzle.team/docs/get-started-postgresql), [Vercel Next.js](https://vercel.com/docs/frameworks/full-stack/nextjs), [connection pooling](https://vercel.com/kb/guide/connection-pooling-with-functions), [cron limits](https://vercel.com/docs/cron-jobs/usage-and-pricing), [Duke API catalog](https://api-catalog.oit.duke.edu/apis/6), [Duke feed builder](https://urlbuilder.calendar.duke.edu/), and [Duke calendar guidance](https://calendar.duke.edu/help).
+
+## Ask Map
+
+Open **Ask Map** to ask about events, a building, today, tomorrow, or this weekend. Answers use the same fixture/live index as the map and include official links and available building actions. Scope is campus-wide by default; selected-building context and current filters are explicit opt-ins. Retrieval-only mode works without a provider key. See [Ask Map integration, configuration and verification](ASK_MAP_INTEGRATION.md).

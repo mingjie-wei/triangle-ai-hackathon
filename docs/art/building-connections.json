@@ -1,0 +1,48 @@
+{
+  "perkins_rubenstein": {
+    "nodes": [
+      "06_perkins",
+      "08_rubenstein"
+    ],
+    "type": "adjoining_building_mass",
+    "status": "required; art seam pending"
+  },
+  "perkins_bostock": {
+    "nodes": [
+      "06_perkins",
+      "07_bostock"
+    ],
+    "type": "raised_stone_arched_connector",
+    "walk_under": true,
+    "status": "connector art to add during map assembly"
+  },
+  "fitzpatrick": {
+    "node": "04_fitzpatrick",
+    "type": "two_wings_and_elevated_glass_bridge",
+    "walk_under": true,
+    "collision_from_image_alpha": false
+  },
+  "tec": {
+    "node": "09_tec",
+    "contains": "Co-Lab",
+    "separate_colab_building": false
+  },
+  "wilkinson_tec": {
+    "nodes": [
+      "05_wilkinson",
+      "09_tec"
+    ],
+    "type": "nearby_with_outdoor_path",
+    "invent_bridge": false
+  },
+  "student_area": {
+    "nodes": [
+      "02_bryan",
+      "03_penn",
+      "10_brodhead"
+    ],
+    "type": "plaza_and_path_relationship",
+    "merge_all_walls": false
+  },
+  "precision": "approximate recognizable forms; retain major connections; exact exits not required"
+}

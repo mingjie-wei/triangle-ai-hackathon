@@ -1,0 +1,92 @@
+[
+  {
+    "id": "01_chapel",
+    "file": "01_Buildings/01_chapel.png",
+    "width": 1402,
+    "height": 1122,
+    "format": "RGBA PNG",
+    "sha256": "7dbe9630786291cdf6747900a6e90c29364e6b83a1ccc2296a30ee4acba06ed9",
+    "stage": "individual building artwork v1; map scale, ground anchors, connectors and collision integration pending"
+  },
+  {
+    "id": "02_bryan",
+    "file": "01_Buildings/02_bryan.png",
+    "width": 1639,
+    "height": 959,
+    "format": "RGBA PNG",
+    "sha256": "aecb4e5559e783204b9e6c0bdca2c54cb3314a40114cdb604bc1f972661c4ffe",
+    "stage": "individual building artwork v1; map scale, ground anchors, connectors and collision integration pending"
+  },
+  {
+    "id": "03_penn",
+    "file": "01_Buildings/03_penn.png",
+    "width": 1774,
+    "height": 887,
+    "format": "RGBA PNG",
+    "sha256": "564e6c927fb0cb5f77dad9c99a0d629ab5d37b750d14d3b9c334b3550a054b21",
+    "stage": "individual building artwork v1; map scale, ground anchors, connectors and collision integration pending"
+  },
+  {
+    "id": "04_fitzpatrick",
+    "file": "01_Buildings/04_fitzpatrick.png",
+    "width": 1774,
+    "height": 887,
+    "format": "RGBA PNG",
+    "sha256": "32e5479a8bae3a14b9dd34567c152b3e93c01013c7b65e3de1122860ddaf374a",
+    "stage": "individual building artwork v1; map scale, ground anchors, connectors and collision integration pending"
+  },
+  {
+    "id": "05_wilkinson",
+    "file": "01_Buildings/05_wilkinson.png",
+    "width": 1536,
+    "height": 1024,
+    "format": "RGBA PNG",
+    "sha256": "79f014a19cde8052e2a8568438900492db106cee82a7f38e820e0615077d3ef1",
+    "stage": "individual building artwork v1; map scale, ground anchors, connectors and collision integration pending"
+  },
+  {
+    "id": "06_perkins",
+    "file": "01_Buildings/06_perkins.png",
+    "width": 1536,
+    "height": 1024,
+    "format": "RGBA PNG",
+    "sha256": "fcacce4b117fe4a4cb2650021c5bcc6b2dc6191a5178f9d1e282f130b45adefe",
+    "stage": "individual building artwork v1; map scale, ground anchors, connectors and collision integration pending"
+  },
+  {
+    "id": "07_bostock",
+    "file": "01_Buildings/07_bostock.png",
+    "width": 1401,
+    "height": 1123,
+    "format": "RGBA PNG",
+    "sha256": "ff506adc2ca9c1d81e7bb9e8476a1534c37e75c13b3a0d993193a9ed097daa94",
+    "stage": "individual building artwork v1; map scale, ground anchors, connectors and collision integration pending"
+  },
+  {
+    "id": "08_rubenstein",
+    "file": "01_Buildings/08_rubenstein.png",
+    "width": 1402,
+    "height": 1122,
+    "format": "RGBA PNG",
+    "sha256": "3405421c5ac843a213552072e9510a1d256389eccee242a4bff665a6b25ba35d",
+    "stage": "individual building artwork v1; map scale, ground anchors, connectors and collision integration pending"
+  },
+  {
+    "id": "09_tec",
+    "file": "01_Buildings/09_tec.png",
+    "width": 1774,
+    "height": 887,
+    "format": "RGBA PNG",
+    "sha256": "3bfebf87382fabb3a36909a850191793fa09f4e9937b4cdafd9bba9e0645aa56",
+    "stage": "individual building artwork v1; map scale, ground anchors, connectors and collision integration pending"
+  },
+  {
+    "id": "10_brodhead",
+    "file": "01_Buildings/10_brodhead.png",
+    "width": 1536,
+    "height": 1024,
+    "format": "RGBA PNG",
+    "sha256": "696ed19bdd4802acfd022fe1cd8898a8509d96dc6477a654e123847903dad003",
+    "stage": "individual building artwork v1; map scale, ground anchors, connectors and collision integration pending"
+  }
+]
