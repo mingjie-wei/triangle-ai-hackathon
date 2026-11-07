@@ -150,7 +150,11 @@ export async function retrieve(
     (input.context.scope === "selected"
       ? display.find((p) => p.slug === input.context.selectedSlug)
       : undefined);
-  if (!place && (input.context.scope === "selected" || /\bhere\b/.test(text)))
+  if (
+    !place &&
+    (input.context.scope === "selected" ||
+      /\b(?:events? (?:are )?here|happening here)\b/.test(text))
+  )
     return clarify(
       "Select a building and choose Selected building, or name it in your question.",
     );
@@ -234,7 +238,8 @@ export async function retrieve(
     );
   }
   if (
-    /\b(history|hours|opening|address|about|building)\b/.test(text) &&
+    (/\b(history|hours|opening|address|building)\b/.test(text) ||
+      (!!place && /\babout\b/.test(text))) &&
     !/\bevents?\b/.test(text)
   ) {
     if (!place) return clarify("Which building would you like to explore?");
