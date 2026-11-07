@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Duke Campus · Blue Devil</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,400;0,600;0,800;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<div class="app">
+  <aside class="panel">
+    <h1 class="logo">DUKE<br>CAMPUS</h1>
+    <section class="find">
+      <h2><span>📅</span> Find events</h2>
+      <form id="findForm" class="search"><input id="findInput" placeholder="Music, art, AI…" autocomplete="off"><button aria-label="Search">⌕</button></form>
+      <div class="chips"><button class="chip" data-q="Music">Music</button><button class="chip" data-q="Art">Art</button><button class="chip" data-q="AI">AI</button></div>
+    </section>
+    <div class="divider"><i></i></div>
+    <section class="chat">
+      <h2><span>💬</span> Blue Devil</h2>
+      <div id="msgs" class="msgs"></div>
+      <form id="chatForm" class="inputbar"><input id="chatInput" placeholder="Ask Blue Devil…" autocomplete="off"><button class="send" aria-label="Send"><svg viewBox="0 0 24 24" width="18" height="18" fill="#fff"><path d="M2 21 23 12 2 3v7l15 2-15 2z"/></svg></button></form>
+      <p id="mode" class="mode">…</p>
+    </section>
+  </aside>
+
+  <main class="stage" id="stage">
+    <div class="pill" id="nearPill">Near <b id="nearName">Duke Chapel</b></div>
+    <div class="infocard" id="infoCard"></div>
+    <div id="mapLayer"></div>
+    <div class="hint"><kbd>E</kbd> Explore <span>|</span> <kbd>M</kbd> Map</div>
+  </main>
+</div>
+
+<div class="modal" id="modal" hidden>
+  <div class="sheet">
+    <header><div><div class="kicker" id="mZone"></div><h2 id="mTitle"></h2><p id="mTag"></p></div>
+      <div class="x"><button id="mClose" aria-label="Close">✕</button><small>Esc to close</small></div></header>
+    <div class="cols">
+      <div class="left"><div class="pic" id="mPic"></div><h3>About this building</h3><p id="mAbout"></p>
+        <div class="pills"><span class="pillbtn" id="mAddr"></span><button class="pillbtn" id="mLocate">📍 Locate on map</button></div>
+        <h3>Visitor tips</h3><p id="mTips"></p></div>
+      <div class="right"><h3>Events at <span id="mName"></span> <em class="badge">Sample content</em></h3><div id="mEvents"></div></div>
+    </div>
+    <footer><button class="primary" id="mBack">Back to exploring</button></footer>
+  </div>
+</div>
+<script src="/static/app.js"></script>
+</body>
+</html>
