@@ -35,7 +35,7 @@ export async function search(
     }));
     places = config.map((p) => ({
       ...p,
-      reviewStatus: "reviewed",
+      reviewStatus: p.reviewStatus,
       officialMapUrl: p.refs[0]
         ? `https://maps.duke.edu/?focus=${p.refs[0]}`
         : null,

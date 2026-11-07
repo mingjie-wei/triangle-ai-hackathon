@@ -81,9 +81,21 @@ test("campus-wide stays broad despite a selected slug", async () => {
   assert.ok(r.resolvedScope.totalMatches > 45);
 });
 test("pending, unknown building, unsupported requirements and outside coverage clarify", async () => {
-  const pending = await retrieve(input("What is happening at Penn Pavilion?"));
+  const pending = await retrieve(
+    input("What is happening at Penn Pavilion?"),
+    async (f) => {
+      const data = await search(f);
+      return {
+        ...data,
+        places: data.places.map((p) =>
+          p.slug === "penn-pavilion" ? { ...p, reviewStatus: "pending" } : p,
+        ),
+      };
+    },
+  );
   assert.match(pending.reply, /mapping is pending/);
-  assert.equal(pending.sources[0].id, "visual:penn-pavilion");
+  assert.equal(pending.sources[0].placeSlug, "penn-pavilion");
+  assert.ok(!pending.sources[0].id.startsWith("visual:"));
   assert.ok(
     (await retrieve(input("events at imaginary hall"))).meta.clarification,
   );
@@ -376,4 +388,14 @@ test("topic matching uses whole words, not art inside department", async () => {
     events: [event],
   }));
   assert.equal(r.sources.length, 0);
+});
+test('DeepSeek rejects duplicate and place citations while preserving retrieved event cards',async()=>{
+ const request=input('music'),r=await retrieve(request),s=r.sources[0];
+ const env: NodeJS.ProcessEnv={CHAT_MODEL_ENABLED:'true',DEEPSEEK_API_KEY:'test',DEEPSEEK_MODEL:'test',NODE_ENV:'test'};
+ for(const segments of [[{sourceId:s.key,text:s.title},{sourceId:s.key,text:s.title}],[{sourceId:'missing',text:s.title}]]){
+  const out=await answer(request,r,async()=>Response.json({choices:[{message:{content:JSON.stringify({segments})}}]}),env);
+  assert.equal(out.meta.answerMode,'retrieval');assert.equal(out.meta.fallbackReason,'PROVIDER_OR_VALIDATION_FAILURE');assert.deepEqual(out.sources,r.sources);
+ }
+ const place={...s,key:'P1',kind:'place' as const};
+ assert.throws(()=>validateAnswer({segments:[{sourceId:'P1',text:place.title}]},{...r,sources:[place,...r.sources]}),/INVALID_GROUNDING/);
 });

@@ -20,6 +20,7 @@ export default function AskMap({
   demo,
   currentFilters,
   buildingOpen,
+  onOpenChange,
   onLocatePlace,
   onOpenPlace,
 }: {
@@ -28,6 +29,7 @@ export default function AskMap({
   demo: boolean;
   currentFilters: NonNullable<ChatRequest["context"]["filters"]>;
   buildingOpen: boolean;
+  onOpenChange?: (open: boolean) => void;
   onLocatePlace: (id: string) => void;
   onOpenPlace: (id: string) => void;
 }) {
@@ -45,6 +47,9 @@ export default function AskMap({
     locked = useRef(false),
     scroll = useRef<HTMLDivElement>(null);
   useEffect(() => () => controller.current?.abort(), []);
+  useEffect(() => {
+    onOpenChange?.(open);
+  }, [open, onOpenChange]);
   useEffect(() => {
     if (!open) return;
     const el = dialog.current,
@@ -314,8 +319,13 @@ export default function AskMap({
                   {turn.response.resolvedScope.totalMatches > 0 &&
                     turn.response.sources.some((x) => x.kind === "event") && (
                       <p className="ask-count">
-                        Showing {turn.response.sources.length} of{" "}
-                        {turn.response.resolvedScope.totalMatches} event
+                        Showing{" "}
+                        {
+                          turn.response.sources.filter(
+                            (s) => s.kind === "event",
+                          ).length
+                        }{" "}
+                        of {turn.response.resolvedScope.totalMatches} event
                         {turn.response.resolvedScope.totalMatches === 1
                           ? ""
                           : "s"}
@@ -337,7 +347,7 @@ export default function AskMap({
                     ·{" "}
                     {turn.response.meta.answerMode === "retrieval"
                       ? "Retrieval-only answer"
-                      : "AI-selected sources"}
+                      : "AI-selected highlights · All retrieved cards shown"}
                     {turn.response.meta.fallbackReason &&
                     turn.response.meta.fallbackReason !== "MODEL_NOT_CONFIGURED"
                       ? " · Model unavailable; showing retrieved facts"

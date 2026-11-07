@@ -1,5 +1,5 @@
 import type { Place, EventRecord } from "@/lib/domain";
-import { isVisualOnly } from "@/lib/presentation";
+import { isMappingPending } from "@/lib/presentation";
 import EventCard, { eventTime } from "./EventCard";
 export default function PlacePanel({
   place,
@@ -22,10 +22,17 @@ export default function PlacePanel({
   onEvent: (e: EventRecord | null) => void;
   onRetry: () => void;
 }) {
-  const pending = !!place && isVisualOnly(place.id);
+  const pending = !!place && isMappingPending(place);
   return (
     <section className="dialog-events" aria-label="Events" aria-busy={loading}>
-      {event && <><button className="text-button" onClick={() => onEvent(null)}>← Back to events</button><h3 className="event-detail-title">{event.title}</h3></>}
+      {event && (
+        <>
+          <button className="text-button" onClick={() => onEvent(null)}>
+            ← Back to events
+          </button>
+          <h3 className="event-detail-title">{event.title}</h3>
+        </>
+      )}
       <div className="panel-scroll" aria-live="polite">
         {error ? (
           <div className="empty-state error-state" role="alert">
@@ -39,10 +46,11 @@ export default function PlacePanel({
         ) : pending ? (
           <div className="empty-state mapping-pending">
             <span className="empty-icon">⌁</span>
-            <h3>A place to explore</h3>
+            <h3>Event mapping not yet verified</h3>
             <p>
-              This landmark is on the visual map. Its event mapping has not been
-              configured in the backend yet.
+              This building is available to explore, but its calendar-location
+              mapping has not been verified. This does not mean it has no
+              events.
             </p>
             <p className="fine-print">
               This is different from a connected place with no matching events.

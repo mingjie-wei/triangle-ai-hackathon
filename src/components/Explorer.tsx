@@ -3,7 +3,12 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import type { EventRecord, Place, Meta } from "@/lib/domain";
 import { categoryNames } from "@/lib/domain";
-import { mergeLandmarks, isVisualOnly, landmarks } from "@/lib/presentation";
+import {
+  mergeLandmarks,
+  landmarks,
+  isVisualOnly,
+  isMappingPending,
+} from "@/lib/presentation";
 import CampusMap from "./CampusMap";
 import PlacePanel from "./PlacePanel";
 import BuildingDialog from "./BuildingDialog";
@@ -39,7 +44,9 @@ export default function Explorer({
     [total, setTotal] = useState(0),
     [panelOpen, setPanelOpen] = useState(false),
     [mobileNav, setMobileNav] = useState(false),
-    [revealSelection, setRevealSelection] = useState(0);
+    [revealSelection, setRevealSelection] = useState(0),
+    [walkSelection, setWalkSelection] = useState(0),
+    [chatOpen, setChatOpen] = useState(false);
   const asOf = useRef(initialAsOf),
     initialized = useRef(false);
   const displayPlaces = mergeLandmarks(places);
@@ -314,25 +321,18 @@ export default function Explorer({
                 onClick={() => choose(p.id)}
                 aria-pressed={selected === p.id}
               >
-                <span
-                  className={`location-icon ${p.slug === "duke-chapel" ? "chapel-icon" : ""}`}
-                >
-                  {p.slug === "duke-chapel"
-                    ? "♜"
-                    : landmarks.some((l) => l.slug === p.slug)
-                      ? String(
-                          landmarks.findIndex((l) => l.slug === p.slug) + 1,
-                        ).padStart(2, "0")
-                      : "◇"}
-                </span>
                 <span>
                   {p.name}
                   <small>
-                    {isVisualOnly(p.id) ? "Activity mapping pending" : p.kind}
+                    {isMappingPending(p)
+                      ? "Event mapping not yet verified"
+                      : p.kind}
                   </small>
                 </span>
                 <b>
-                  {isVisualOnly(p.id) ? "↗" : loading ? "—" : (p.count ?? 0)}
+                  {error || loading || isMappingPending(p)
+                    ? "—"
+                    : (p.count ?? 0)}
                 </b>
               </button>
             ))}
@@ -359,6 +359,12 @@ export default function Explorer({
           places={displayPlaces}
           selected={selected}
           revealSelection={revealSelection}
+          walkSelection={walkSelection}
+          suspended={panelOpen || chatOpen}
+          onEscape={() => {
+            setPanelOpen(false);
+            setMobileNav(false);
+          }}
           onSelect={choose}
         />
         <div className="connection-status">
@@ -369,7 +375,7 @@ export default function Explorer({
               ? "Live event index"
               : "Connecting to event API"}
           <span className="connection-divider">/</span>
-          <span>{places.length} event-linked places</span>
+          <span>{places.filter((p) => !isMappingPending(p)).length} event-linked places</span>
         </div>
         {!panelOpen && (
           <button
@@ -386,6 +392,10 @@ export default function Explorer({
           onLocate={() => {
             setPanelOpen(false);
             setRevealSelection((v) => v + 1);
+          }}
+          onWalk={() => {
+            setPanelOpen(false);
+            setWalkSelection((v) => v + 1);
           }}
           filterSummary={[
             query && `“${query}”`,
@@ -418,6 +428,7 @@ export default function Explorer({
           />
         </BuildingDialog>
         <AskMap
+          onOpenChange={setChatOpen}
           place={place}
           demo={demo}
           asOf={initialAsOf}

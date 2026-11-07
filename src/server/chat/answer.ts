@@ -16,7 +16,12 @@ function groundedSegments(value: unknown, result: ChatResponse) {
   for (const s of parsed.segments) {
     const source = result.sources.find((item) => item.key === s.sourceId);
     // Extractive output only: a valid citation does not make arbitrary generated prose factual.
-    if (!source || source.title !== s.text || seen.has(s.sourceId))
+    if (
+      !source ||
+      source.kind !== "event" ||
+      source.title !== s.text ||
+      seen.has(s.sourceId)
+    )
       throw new Error("INVALID_GROUNDING");
     seen.add(s.sourceId);
   }
@@ -123,6 +128,7 @@ export async function answer(
           model: env.DEEPSEEK_MODEL,
           max_tokens: 500,
           temperature: 0,
+          thinking: { type: "disabled" },
           stream: false,
           response_format: { type: "json_object" },
           messages: [
@@ -136,12 +142,14 @@ export async function answer(
               content: JSON.stringify({
                 question: input.message,
                 scope: result.resolvedScope,
-                records: result.sources.map((s) => ({
-                  sourceId: s.key,
-                  title: s.title,
-                  location: s.location,
-                  startsAt: s.startsAt,
-                })),
+                records: result.sources
+                  .filter((s) => s.kind === "event")
+                  .map((s) => ({
+                    sourceId: s.key,
+                    title: s.title,
+                    location: s.location,
+                    startsAt: s.startsAt,
+                  })),
               }),
             },
           ],

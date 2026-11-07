@@ -2,7 +2,7 @@
 
 A Next.js / React / TypeScript campus event explorer: select a place, filter upcoming and ongoing events, and open the official Duke listing. The illustration is intentionally replaceable and is **not walking navigation**. Independent student project; not affiliated with Duke University.
 
-The autumn frontend has one continuous West Campus world, ten supplied pixel-art building sprites, bounded pan/zoom, a synchronized minimap, and a responsive building/event modal. Ground, paths, trees and library connectors use simple vectors. Event coverage is resolved dynamically from the API. See [frontend integration and verification](FRONTEND_INTEGRATION.md).
+The autumn frontend embeds one continuous painted West Campus world with ten selectable buildings, a walking avatar, drag/zoom controls, an overview-toggle minimap, and a responsive building/event modal. The host retains event search and Ask Map. Event coverage is resolved dynamically from the API. The latest [building mapping audit](reports/building-mapping-audit.md) records the canonical IDs, official evidence and database validation limits. See [painted map integration and verification](PAINTED_MAP_INTEGRATION.md); the earlier sprite-layout work is recorded in [frontend integration](FRONTEND_INTEGRATION.md).
 
 ## Run the demo
 
@@ -26,7 +26,7 @@ npm run db:seed
 npm run sync:duke
 ```
 
-Then set `DATA_MODE=live` in `.env` and run `npm run dev`. Migration is explicit, never performed at build time or on a request. The idempotent seed configures six reviewed places, room aliases, and illustrative normalized positions. Runtime uses Drizzle with postgres.js, a small pool, connection timeout, and idle expiry. Separate preview/test databases from production.
+Then set `DATA_MODE=live` in `.env` and run `npm run dev`. Migration is explicit, never performed at build time or on a request. The idempotent seed configures ten reviewed places, room aliases, and illustrative normalized positions. Runtime uses Drizzle with postgres.js, a small pool, connection timeout, and idle expiry. Separate preview/test databases from production.
 
 No database account has been provisioned by this project. Hosted database validation is pending credentials. Do not claim the fixture preview verifies a live database import.
 

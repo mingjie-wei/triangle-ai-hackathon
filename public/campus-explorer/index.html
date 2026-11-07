@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#f9e6bd"><title>Cyber Duke · A Campus Adventure</title><link rel="stylesheet" href="./styles.css"></head>
+<body><div class="app">
+<aside id="side" class="paper-frame">
+  <header class="brand"><div>DUKE<br>CAMPUS</div><img id="crest" alt="Duke Chapel"><small>A LITTLE CURIOSITY. A NEW CONNECTION.</small></header>
+  <section class="find"><h1>Explore campus</h1><div class="search-wrap"><span aria-hidden="true">⌕</span><input id="search" placeholder="Chapel, library, engineering…" aria-label="Search campus buildings"></div><div class="chips" role="group" aria-label="Building categories"><button data-filter="all" class="active">All places</button><button data-filter="library">Libraries</button><button data-filter="engineering">Engineering</button></div></section>
+  <nav id="list" class="list" aria-label="Campus buildings"></nav>
+  <div class="ornament" aria-hidden="true"><span>❖</span></div>
+  <section class="guide"><h2>Campus guide</h2><div class="guide-bubble"><b>A little room to wander.</b><p id="guide-text">Explore the illustrated plazas and garden paths.</p><button id="guide-show" class="blue-button">Show the Chapel <span>→</span></button></div><div class="guide-shortcuts"><button data-slug="brodhead-center">Find a bite</button><button data-slug="bostock-library">Find a quiet spot</button></div></section>
+  <footer class="sidefoot"><span id="progress">YOUR JOURNEY · 0 / 10 PLACES</span><p>Campus landmarks · Autumn pixel exploration<br>Illustrated outdoor exploration</p></footer>
+</aside>
+<main id="stage">
+<canvas id="world" tabindex="0" aria-label="Illustrated Duke campus. WASD or arrows move, E explores, M toggles overview.">Your browser must support Canvas to display this illustration. Use the host building list to explore events.</canvas>
+<button class="mobiletoggle" id="menu" aria-label="Open campus guide">☰</button>
+<div class="top"><div class="location-banner paper-frame"><span class="pin" aria-hidden="true">⌖</span><span>Near <b id="location">Duke Chapel</b></span></div><span class="walk-mode" id="mode">GOLDEN HOUR · AUTUMN</span></div>
+
+<div class="tools"><button id="plus" aria-label="Zoom in">+</button><button id="minus" aria-label="Zoom out">−</button><button id="follow" aria-label="Find my character" title="Find my character">◎</button><button id="overview" aria-label="Toggle campus overview" title="Campus map (M)">⊞</button></div>
+<section class="panel paper-frame" id="panel" aria-live="polite"><button id="close-panel" class="close" aria-label="Close building introduction">×</button><div class="panel-kicker" id="panel-kicker">CAMPUS FIELD NOTES</div><div class="panel-heading"><img id="panel-icon" alt=""><div><h2 id="panel-name">Duke Chapel</h2><span id="panel-kind">Landmark · Music & reflection</span></div></div><p id="panel-description">A Gothic bell tower marks this illustrated West Campus landmark.</p><div class="panel-rule"></div><div class="panel-meta"><span>Discover · Explore</span><a id="official-link" href="https://maps.duke.edu/?focus=290" target="_blank" rel="noopener">Official map ↗</a></div><button id="walk-to" class="blue-button walk-to">Walk there on the map <span>→</span></button><p class="panel-note">Illustrated exploration, not GPS, walking directions or accessibility guidance.</p></section>
+<button class="near paper-frame" id="near" hidden><b id="near-name">Duke Chapel</b><span><kbd>E</kbd> Explore →</span></button>
+<div class="welcome" id="welcome"><span>An autumn worth exploring.</span><small>Use WASD or arrow keys to explore the illustration.</small><button id="welcome-close" aria-label="Dismiss hint">×</button></div>
+<div class="mini-shell paper-frame" id="mini-shell"><div class="mini-title"><b>Campus <i>map</i></b><button id="mini-expand">Expand map <kbd>M</kbd></button></div><canvas id="minimap" aria-label="Campus minimap: toggle overview" role="button" tabindex="0"></canvas></div>
+<div id="map-status" role="status" aria-live="polite"></div><div class="mapnote">Illustrated exploration · Not walking directions</div>
+<div class="bottom"><span><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> <span class="control-label">Move</span></span><span><kbd>E</kbd> Explore</span><span><kbd>M</kbd> Map</span><span class="optional">Click · Walk &nbsp; Drag · Pan</span></div>
+<div class="pad" id="pad" aria-label="Touch movement controls"><span></span><button data-key="w" aria-label="Move up">↑</button><span></span><button data-key="a" aria-label="Move left">←</button><button data-key="s" aria-label="Move down">↓</button><button data-key="d" aria-label="Move right">→</button></div>
+</main></div><script>window.addEventListener('error',function(e){if(window.parent!==window&&(e.error||e.target.tagName==='SCRIPT'))window.parent.postMessage({channel:'cyber-duke-map',version:1,type:'error'},window.location.origin)},true)</script><script src="./data.js" defer></script><script src="./physics.js" defer></script><script src="./app.js" defer></script></body></html>

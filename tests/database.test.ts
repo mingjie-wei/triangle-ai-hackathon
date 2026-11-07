@@ -77,3 +77,106 @@ test(
     }
   },
 );
+
+// This suite also rolls back its fixture rows; requires an empty disposable database.
+test(
+  "canonical seeding preserves slug IDs and backfills source locations without replacing events",
+  { skip: !process.env.TEST_DATABASE_URL },
+  async () => {
+    const { placesTable, locationsTable, placementsTable, aliasesTable } =
+      await import("../src/server/db/schema");
+    const { seedPlaces } = await import("../src/server/sync");
+    const { places } = await import("../config/places");
+    const client = postgres(process.env.TEST_DATABASE_URL!, {
+      max: 1,
+      prepare: false,
+    });
+    const database = drizzle(client);
+    try {
+      await migrate(database, { migrationsFolder: "drizzle" });
+      await database
+        .transaction(async (tx) => {
+          assert.equal(
+            (await tx.select().from(placesTable)).length,
+            0,
+            "Use an empty disposable test database",
+          );
+          const perkins = places.find((p) => p.slug === "perkins-library")!,
+            persistedId = "22222222-2222-4222-8222-222222222222";
+          await tx
+            .insert(placesTable)
+            .values({
+              id: persistedId,
+              slug: perkins.slug,
+              name: perkins.name,
+              kind: perkins.kind,
+              reviewStatus: "pending",
+            });
+          const [location] = await tx
+            .insert(locationsTable)
+            .values({
+              sourceKey: "seed-backfill-test",
+              label: "Perkins Library, The Link Classroom 2",
+              externalRef: "392",
+              matchMethod: "unresolved",
+              reviewStatus: "pending",
+            })
+            .returning();
+          const { placeId, ...event } = adapt({
+            id: "seed-backfill-event",
+            summary: "Database test only",
+            start_timestamp: "2026-11-08T18:00:00Z",
+          }).event;
+          void placeId;
+          const [stored] = await tx
+            .insert(eventsTable)
+            .values({ ...event, sourceLocationId: location.id })
+            .returning();
+          await seedPlaces(tx);
+          const first = await tx.select().from(placesTable),
+            firstAliases = await tx.select().from(aliasesTable);
+          await seedPlaces(tx);
+          const second = await tx.select().from(placesTable);
+          assert.equal(second.length, 10);
+          assert.deepEqual(
+            second.map((p) => p.id).sort(),
+            first.map((p) => p.id).sort(),
+          );
+          assert.equal(
+            second.find((p) => p.slug === perkins.slug)?.id,
+            persistedId,
+          );
+          assert.equal((await tx.select().from(placementsTable)).length, 10);
+          assert.equal(
+            (await tx.select().from(aliasesTable)).length,
+            firstAliases.length,
+          );
+          const [updatedLocation] = await tx
+            .select()
+            .from(locationsTable)
+            .where(eq(locationsTable.id, location.id));
+          assert.equal(updatedLocation.placeId, persistedId);
+          assert.equal(updatedLocation.reviewStatus, "reviewed");
+          const storedEvents = await tx.select().from(eventsTable);
+          assert.equal(storedEvents.length, 1);
+          assert.equal(storedEvents[0].id, stored.id);
+          assert.equal(storedEvents[0].sourceLocationId, location.id);
+          const joined = await tx
+            .select()
+            .from(eventsTable)
+            .innerJoin(
+              locationsTable,
+              eq(eventsTable.sourceLocationId, locationsTable.id),
+            )
+            .innerJoin(placesTable, eq(locationsTable.placeId, placesTable.id));
+          assert.equal(joined.length, 1);
+          throw new Error("ROLLBACK_TEST");
+        })
+        .catch((e) => {
+          if (e.message !== "ROLLBACK_TEST") throw e;
+        });
+    } finally {
+      await client.end();
+    }
+  },
+);
