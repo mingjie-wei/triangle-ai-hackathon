@@ -72,6 +72,7 @@ test("fixture/API include ten canonical places, zero-event places stay known, ne
   assert.equal(isMappingPending(tec), false);
   assert.equal(isMappingPending({ ...tec, reviewStatus: "pending" }), true);
   const r = await retrieve({
+    mode: "events",
     message: "What is happening at Penn Pavilion?",
     history: [],
     context: { scope: "campus" },

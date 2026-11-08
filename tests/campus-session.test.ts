@@ -81,3 +81,32 @@ test("clearing host selection clears the child on update and reload", () => {
   assert.deepEqual(out, ["pause", "clear-selection"]);
   session.dispose();
 });
+test("recommendation walk unpauses before issuing exactly one route and never replays on reload", () => {
+  const out: { type: string; [key: string]: unknown }[] = [];
+  const session = new CampusSession(
+    state,
+    (type, payload) => out.push({ type, ...payload }),
+    () => {},
+  );
+  session.ready(state);
+  out.length = 0;
+  const next = {
+    ...state,
+    paused: false,
+    slug: "wilkinson-building",
+    walk: state.walk + 1,
+  };
+  session.update(next);
+  assert.deepEqual(out, [
+    { type: "pause", paused: false },
+    { type: "focus-building", slug: "wilkinson-building" },
+    { type: "walk-to", slug: "wilkinson-building" },
+  ]);
+  session.update(next);
+  assert.equal(out.filter((x) => x.type === "walk-to").length, 1);
+  session.start();
+  out.length = 0;
+  session.ready(next);
+  assert.equal(out.filter((x) => x.type === "walk-to").length, 0);
+  session.dispose();
+});

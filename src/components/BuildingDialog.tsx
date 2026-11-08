@@ -80,7 +80,7 @@ export default function BuildingDialog({
           <span className="eyebrow">
             {place
               ? "WEST CAMPUS / BUILDING GUIDE"
-              : "AROUND DUKE / EVENT DISCOVERY"}
+              : "DUKE VALLEY / EVENT DISCOVERY"}
           </span>
           <h2 id="building-dialog-title">
             {place?.name ?? "All campus events"}
