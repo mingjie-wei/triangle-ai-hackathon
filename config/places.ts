@@ -1,5 +1,4 @@
 // Reviewed against source room labels and exact Duke map references on 2026-11-06.
-// See reports/building-mapping-audit.md for the ten-building review.
 // Positions are illustrative, not geographic. Bryan is alias-only pending focus review.
 export const places = [
   {
