@@ -175,7 +175,8 @@ export default function AskMap({
         onClick={() => setOpen(true)}
         aria-haspopup="dialog"
       >
-        ✦ Ask Map
+        <img src="/mascots/aura-guide.png" alt="" className="aura-launcher-avatar" />
+        <span>Ask Aura <small>Your campus companion</small></span>
       </button>
       <dialog
         ref={dialog}
@@ -206,11 +207,11 @@ export default function AskMap({
       >
         <header className="ask-header">
           <div>
-            <span className="eyebrow">BLUE DEVIL / AROUND DUKE</span>
+            <span className="eyebrow">YOUR AI CAMPUS GUIDE</span>
             <h2 id="ask-title">
-              Ask Map <span>✦</span>
+              Meet Aura <span>✦</span>
             </h2>
-            <p>A little curiosity. A source to follow.</p>
+            <p>A friendly face. A little campus magic.</p>
           </div>
           <button
             className="close-button"
@@ -257,11 +258,12 @@ export default function AskMap({
         <div ref={scroll} className="ask-transcript">
           {!turns.length && (
             <div className="ask-welcome">
-              <span aria-hidden="true">✦</span>
-              <h3>What will you discover?</h3>
+              <div className="aura-introduction">
+                <img className="aura-portrait" src="/mascots/aura-guide.png" alt="Aura, your smiling campus guide in a blue Duke cap" />
+                <div className="aura-greeting"><span className="aura-name">AURA · YOUR CAMPUS COMPANION</span><h3>Hi! I’m Aura.</h3><p>Let’s explore Duke together! Tell me what you’re curious about — I’ll help you find a little something you’ll love.</p></div>
+              </div>
               <p>
-                Ask about events, a building, today, tomorrow, or this weekend.
-                Answers link back to the event index.
+                A concert, a new place, or weekend plans — where shall we start?
               </p>
               {[
                 "What music events are coming up?",
@@ -298,6 +300,7 @@ export default function AskMap({
               </small>
               {turn.response && (
                 <>
+                  <div className="aura-answer-label"><img src="/mascots/aura-guide.png" alt="" /><strong>Aura</strong><span>Here to help</span></div>
                   <p className="ask-reply">{turn.response.reply}</p>
                   <div className="ask-resolution">
                     <strong>{turn.response.resolvedScope.label}</strong>
@@ -371,7 +374,7 @@ export default function AskMap({
           ))}
           <div role="status" aria-live="polite" className="ask-status">
             {pending
-              ? "Checking the event index…"
+              ? "✦ Aura is finding a few things for you…"
               : turns.at(-1)?.response
                 ? `Answer ready. ${turns.at(-1)!.response!.sources.length} source cards.`
                 : ""}
@@ -393,7 +396,7 @@ export default function AskMap({
             value={message}
             onChange={(e) => setMessage(e.target.value)}
             maxLength={1000}
-            placeholder="Ask about campus events…"
+            placeholder="Ask Aura anything about campus events…"
             autoComplete="off"
           />
           <button type="submit" disabled={pending || !message.trim()}>
