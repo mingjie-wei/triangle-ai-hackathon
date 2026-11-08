@@ -1884,7 +1884,7 @@ p {
 .ask-header h2 span { color:#b58735; font-size:24px; }
 .ask-header p { margin:0; font-size:13px; color:#7c6545; }
 .ask-header .eyebrow { font-size:10px; }
-.ask-scope { padding:12px 22px; display:grid; gap:8px; border-bottom:1px solid #cfb990; font-size:12px; flex-shrink:0; }
+.ask-scope { padding:12px 22px; display:grid; grid-template-columns:minmax(0,1fr); gap:8px; border-bottom:1px solid #cfb990; font-size:12px; flex-shrink:0; }
 .ask-scope label { display:flex; align-items:center; gap:10px; }
 .ask-scope select { min-width:0; flex:1; min-height:36px; border:1px solid #bca074; border-radius:5px; padding:6px; background:#fff8e8; color:#493b27; }
 .ask-scope small { color:#7b6443; }
@@ -1960,6 +1960,24 @@ p {
 .building-dialog .primary-link { font-size:16px; }
 
 .ask-count { margin:12px 0 4px; font-size:15px; font-weight:700; line-height:1.5; }
+
+/* Aura campus companion */
+.ask-launcher { display:flex; align-items:center; gap:10px; padding:5px 16px 5px 7px; text-align:left; }
+.aura-launcher-avatar { width:48px; height:48px; object-fit:contain; image-rendering:pixelated; }
+.ask-launcher small { display:block; margin-top:3px; font-size:12px; font-weight:400; color:#f0ddb4; }
+.aura-introduction { display:flex; align-items:center; gap:14px; padding:10px 0 18px; }
+.aura-portrait { width:128px; height:148px; object-fit:contain; flex-shrink:0; image-rendering:pixelated; filter:drop-shadow(0 5px 0 #ba965421); }
+.aura-greeting { position:relative; background:#fff4df; border:1px solid #caaa7c; border-radius:16px 16px 16px 3px; padding:16px; box-shadow:0 3px 0 #b9966422; }
+.aura-name { font:700 11px/1.6 system-ui,sans-serif; letter-spacing:1.2px; color:#927044; }
+.aura-greeting h3 { color:#173f79; margin:7px 0; font-size:25px; }
+.aura-greeting p { margin:0; font-size:15px; line-height:1.65; }
+.aura-answer-label { display:flex; gap:8px; align-items:center; color:#173f79; margin-top:12px; }
+.aura-answer-label img { width:38px; height:42px; object-fit:contain; image-rendering:pixelated; }
+.aura-answer-label span { font-size:13px; color:#816d51; }
+.ask-welcome>p { color:#796344; }
+.ask-welcome button:hover { background:#f5e7c9; border-color:#173f79; }
+.ask-status:not(:empty) { border-radius:8px; background:#f6ecd7; padding:10px; }
+@media(max-width:420px) { .aura-portrait { width:90px; height:120px; } .aura-introduction { gap:8px; flex-direction:column; align-items:flex-start; } .aura-greeting { padding:12px; width:100%; } }
 
 /* One active, session-only exploration recommendation. */
 .ask-explore-intro { margin: 0; font-size: 14px; line-height: 1.5; }

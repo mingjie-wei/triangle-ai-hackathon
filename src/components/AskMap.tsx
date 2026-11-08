@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import { DateTime } from "luxon";
+import Image from "next/image";
 import { RecommendationSession } from "@/lib/recommendation-session";
 import type { Place } from "@/lib/domain";
 import type {
@@ -214,7 +215,16 @@ export default function AskMap({
         onClick={() => setOpen(true)}
         aria-haspopup="dialog"
       >
-        ✦ Ask Map
+        <Image
+          src="/mascots/aura-guide.png"
+          alt=""
+          width={48}
+          height={48}
+          className="aura-launcher-avatar"
+        />
+        <span>
+          Ask Aura <small>Your campus companion</small>
+        </span>
       </button>
       <dialog
         ref={dialog}
@@ -245,15 +255,15 @@ export default function AskMap({
       >
         <header className="ask-header">
           <div>
-            <span className="eyebrow">BLUE DEVIL / DUKE VALLEY</span>
+            <span className="eyebrow">DUKE VALLEY / YOUR AI CAMPUS GUIDE</span>
             <h2 id="ask-title">
-              Ask Map <span>✦</span>
+              Meet Aura <span>✦</span>
             </h2>
-            <p>A little curiosity. A source to follow.</p>
+            <p>A friendly face. A little campus magic.</p>
           </div>
           <button
             className="close-button"
-            aria-label="Close Ask Map"
+            aria-label="Close Aura"
             onClick={close}
           >
             ×
@@ -335,11 +345,27 @@ export default function AskMap({
         <div ref={scroll} className="ask-transcript">
           {!turns.length && (
             <div className="ask-welcome">
-              <span aria-hidden="true">✦</span>
-              <h3>What will you discover?</h3>
+              <div className="aura-introduction">
+                <Image
+                  className="aura-portrait"
+                  src="/mascots/aura-guide.png"
+                  width={128}
+                  height={148}
+                  alt="Aura, your smiling campus guide in a blue Duke cap"
+                />
+                <div className="aura-greeting">
+                  <span className="aura-name">
+                    AURA · YOUR CAMPUS COMPANION
+                  </span>
+                  <h3>Hi! I’m Aura.</h3>
+                  <p>
+                    Let’s explore Duke together! Tell me what you’re curious
+                    about — I’ll help you find a little something you’ll love.
+                  </p>
+                </div>
+              </div>
               <p>
-                Ask about events, a building, today, tomorrow, or this weekend.
-                Answers link back to the event index.
+                A concert, a new place, or weekend plans — where shall we start?
               </p>
               {[
                 "What music events are coming up?",
@@ -379,6 +405,16 @@ export default function AskMap({
               </small>
               {turn.response && (
                 <>
+                  <div className="aura-answer-label">
+                    <Image
+                      src="/mascots/aura-guide.png"
+                      width={38}
+                      height={42}
+                      alt=""
+                    />
+                    <strong>Aura</strong>
+                    <span>Here to help</span>
+                  </div>
                   {turn.response.recommendation?.status === "ok" ? (
                     <RecommendationCard
                       recommendation={turn.response.recommendation}
@@ -489,8 +525,8 @@ export default function AskMap({
           <div role="status" aria-live="polite" className="ask-status">
             {pending
               ? mode === "explore"
-                ? "Finding a grounded starting point…"
-                : "Checking the event index…"
+                ? "Aura is finding a grounded starting point…"
+                : "Aura is checking the event index…"
               : turns.at(-1)?.response
                 ? `Answer ready. ${turns.at(-1)!.response!.sources.length} source cards.`
                 : ""}
@@ -514,8 +550,8 @@ export default function AskMap({
             maxLength={1000}
             placeholder={
               mode === "explore"
-                ? "Tell us your interests and what you’re hoping for…"
-                : "Ask about campus events…"
+                ? "Tell Aura your interests and what you’re hoping for…"
+                : "Ask Aura about campus events…"
             }
             autoComplete="off"
           />
